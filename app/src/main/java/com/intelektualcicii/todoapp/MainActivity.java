@@ -6,8 +6,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         final TextView forgotPassword = findViewById(R.id.tv_forgotPassword);
-        final TextView signUp = findViewById(R.id.tv_signUp);
+        final TextView signUp = findViewById(R.id.tv_logIn);
         final EditText email=findViewById(R.id.et_email);
         final EditText password=findViewById(R.id.et_password);
-        final Button logIn=findViewById(R.id.bt_logIn);
+        final Button logIn=findViewById(R.id.bt_signUp);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final ImageView showPassword=findViewById(R.id.iv_showPassword);
 
         showPassword.setOnClickListener(new View.OnClickListener() {
