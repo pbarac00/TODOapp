@@ -12,20 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private boolean passwordShow=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up2);
+        setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
 
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final TextView logIn = findViewById(R.id.tv_SU_logIn);
-        final EditText email=findViewById(R.id.et_SU_email);
-        final EditText password=findViewById(R.id.et_SU_password);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText email=findViewById(R.id.et_SU_email);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText password=findViewById(R.id.et_SU_password);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button signUp=findViewById(R.id.bt_SU_signUp);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final ImageView showPassword=findViewById(R.id.iv_SU_showPassword);
 
@@ -50,7 +50,7 @@ public class SignUp extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignUp.this,MainActivity.class));
+                startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 finish();
             }
 
