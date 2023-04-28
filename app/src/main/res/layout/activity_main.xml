@@ -21,9 +21,11 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="364dp"
-        android:layout_height="209dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +33,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="313dp">
 
             <EditText
                 android:id="@+id/et_email"
@@ -40,7 +42,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/round_back_dark_blue5_15"
+                android:background="@drawable/round_back_light_grey20"
                 android:hint="Email"
 
                 android:maxLines="1"
@@ -52,12 +54,13 @@
 
 
             <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/round_back_dark_blue5_15"
+                android:background="@drawable/round_back_light_grey20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/et_email"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +83,39 @@
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/show_blue" />
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/show" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="Forgot password?"
+                android:textColor="@color/applicationLightBlue"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_logIn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Log in"
+                android:background="@drawable/round_back_application_light_blue15"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_forgotPassword" />
+
+
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
