@@ -3,6 +3,7 @@ package com.intelektualcicii.todoapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -21,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         final TextView forgotPassword = findViewById(R.id.tv_forgotPassword);
-        final TextView signUp = findViewById(R.id.tv_logIn);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final TextView signUp = findViewById(R.id.tv_signUp);
         final EditText email=findViewById(R.id.et_email);
         final EditText password=findViewById(R.id.et_password);
-        final Button logIn=findViewById(R.id.bt_signUp);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button logIn=findViewById(R.id.bt_logIn);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final ImageView showPassword=findViewById(R.id.iv_showPassword);
 
         showPassword.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //move cursor to end of password
                 password.setSelection(password.length());
+            }
+        });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,SignUp.class));
             }
         });
 
