@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".SignUpActivity"
+    android:background="?attr/backroundColor1"
     >
 
     <ImageView
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
         android:text="Create account"
-        android:textColor="@color/black"
+
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="394dp">
+            android:layout_height="394dp"
+            android:background="?attr/backroundColor1">
 
             <EditText
                 android:id="@+id/et_SU_name"
@@ -128,7 +130,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/round_back_application_light_blue15"
+                android:background="@drawable/round_back_application_light_blue20"
                 android:text="Sign up"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"

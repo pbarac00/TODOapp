@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="applicationLightBlue">#178BF9</color>
+    <attr name="backroundColor1" format="color" />
+    <attr name="buttonColor1" format="color"/>
 </resources>

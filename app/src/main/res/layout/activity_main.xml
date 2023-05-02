@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
+    android:background="?attr/backroundColor1"
     >
 
 
@@ -47,7 +48,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="313dp">
+            android:layout_height="313dp"
+            android:id="@+id/constraintLayout1"
+            android:background="?attr/backroundColor1"
+            >
+
 
             <EditText
                 android:id="@+id/et_email"
@@ -123,7 +128,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Log in"
-                android:background="@drawable/round_back_application_light_blue15"
+                android:background="@drawable/round_back_application_light_blue20"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

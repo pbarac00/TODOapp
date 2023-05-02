@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.TODOapp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/applicationLightBlue</item>
+        <item name="colorPrimaryVariant">@color/applicationLightBlue</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
@@ -12,5 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorTertiary">@android:color/white</item>
+        <item name="backroundColor1"> #000000</item>
+        <item name="buttonColor1">#5A5A5A</item>
     </style>
 </resources>
