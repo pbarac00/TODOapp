@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         firebaseAuth=FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser()!=null){
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            finish();
+        }
+
         forgotPassword = findViewById(R.id.tv_forgotPassword);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final TextView signUp = findViewById(R.id.tv_signUp);
         email_et=findViewById(R.id.et_email);
