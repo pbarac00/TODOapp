@@ -17,6 +17,12 @@
         <item name="android:textColorTertiary">@android:color/black</item>
         <item name="buttonColor1">#0D174188</item>
     </style>
+    <style name="Theme.TODOapp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.TODOapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.TODOapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
