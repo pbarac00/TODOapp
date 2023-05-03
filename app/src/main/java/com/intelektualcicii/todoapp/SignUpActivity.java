@@ -1,5 +1,6 @@
 package com.intelektualcicii.todoapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,10 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private boolean passwordShow=false;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,8 @@ public class SignUpActivity extends AppCompatActivity {
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText password=findViewById(R.id.et_SU_password);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button signUp=findViewById(R.id.bt_SU_signUp);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final ImageView showPassword=findViewById(R.id.iv_SU_showPassword);
+
+        firebaseAuth=FirebaseAuth.getInstance();
 
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +63,30 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 finish();
             }
-
-
-
         });
+
+
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(SignUpActivity.this, "signedUp", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+                                }
+                                else{
+                                    Toast.makeText(SignUpActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+
+
 
     }
 }

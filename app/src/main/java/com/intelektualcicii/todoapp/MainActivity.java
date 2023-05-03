@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
 
+public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth firebaseAuth;
     private boolean passwordShow=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         final EditText password=findViewById(R.id.et_password);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button logIn=findViewById(R.id.bt_logIn);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final ImageView showPassword=findViewById(R.id.iv_showPassword);
+
+        firebaseAuth=FirebaseAuth.getInstance();
 
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
 
     }
 
