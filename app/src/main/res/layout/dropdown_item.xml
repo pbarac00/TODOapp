@@ -1,0 +1,12 @@
+ <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/round_back_application_light_blue20"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textAlignment="center"
+     />

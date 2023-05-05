@@ -12,6 +12,7 @@
 
 
     <string-array name="categories_hardcoded">
+        <item>All to-dos</item>
         <item>Work</item>
         <item>Trip planing</item>
         <item>Personal</item>
