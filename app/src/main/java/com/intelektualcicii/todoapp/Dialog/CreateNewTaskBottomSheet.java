@@ -16,14 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.intelektualcicii.todoapp.DataHolder.Task;
 import com.intelektualcicii.todoapp.R;
+
+import java.util.UUID;
 
 public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     EditText newTODO;
     ImageView lowPriority,medPriority,highPriority;
     Button saveTODO;
-
+    private String taskText;
     private Integer taskPriority;
+    FirebaseAuth firebaseAuth;
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -35,6 +43,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         medPriority=view.findViewById(R.id.iv_medPriority);
         highPriority=view.findViewById(R.id.iv_highPriority);
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
+        taskPriority=0; // default value (low) priority
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         lowPriority.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +65,19 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-
         highPriority.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 highPriority.setImageResource(R.drawable.high_priority_dark);
                 taskPriority=3;
+            }
+        });
+
+        saveTODO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewTodo();
             }
         });
 
@@ -73,22 +89,35 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         lowPriority.setImageResource(R.drawable.low_priority);
         medPriority.setImageResource(R.drawable.med_priority);
         highPriority.setImageResource(R.drawable.high_priority);
-
     }
 
 
     private void createNewTodo(){
-        String taskName;
-        Integer priority;
-        taskName=newTODO.getText().toString().trim();
-    }
+        taskText=newTODO.getText().toString().trim();
+        if (taskText.isEmpty()){
+            Toast.makeText(getContext(), "Nothing to save, please edit TO-DO", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            //TODO popravit kako se taskovi spremaju u firebase
+            String uniqueID = UUID.randomUUID().toString();
+            Task task=new Task(taskText,taskPriority,false,uniqueID);
 
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
+            String userID = user.getUid();
+
+            reference.child(userID).child("Task").setValue(task);
+            Toast.makeText(getContext(), "TO-DO added", Toast.LENGTH_SHORT).show();
+            dismiss();
+
+        }
+    }
 
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        Toast.makeText(getContext(), "ToDO saved lol", Toast.LENGTH_SHORT).show();
         //TODO implemetiraj da se savea TO-DO ako nije prazan
     }
 }

@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+
                 Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeActivity.this,MainActivity.class));
                 finish();
@@ -51,7 +52,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "Add to-do clicked", Toast.LENGTH_SHORT).show();
                 CreateNewTaskBottomSheet createNewTaskBottomSheet= new CreateNewTaskBottomSheet();
                 createNewTaskBottomSheet.show(getSupportFragmentManager(),"createNewTaskBottomSheet");
             }
@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text= parent.getItemAtPosition(position).toString();
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
