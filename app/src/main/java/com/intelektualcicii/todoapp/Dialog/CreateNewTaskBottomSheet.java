@@ -23,6 +23,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     ImageView lowPriority,medPriority,highPriority;
     Button saveTODO;
 
+    private Integer taskPriority;
+
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -35,9 +37,42 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
 
 
+        lowPriority.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                lowPriority.setImageResource(R.drawable.low_priority_dark);
+                taskPriority=1;
+            }
+        });
 
+        medPriority.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                medPriority.setImageResource(R.drawable.medium_priority_dark);
+                taskPriority=2;
+            }
+        });
+
+
+        highPriority.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                highPriority.setImageResource(R.drawable.high_priority_dark);
+                taskPriority=3;
+            }
+        });
 
         return view;
+
+    }
+
+    private void setDefaultPriorityIcons(){
+        lowPriority.setImageResource(R.drawable.low_priority);
+        medPriority.setImageResource(R.drawable.med_priority);
+        highPriority.setImageResource(R.drawable.high_priority);
 
     }
 
@@ -46,16 +81,14 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         String taskName;
         Integer priority;
         taskName=newTODO.getText().toString().trim();
-
-
     }
-    
+
 
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         Toast.makeText(getContext(), "ToDO saved lol", Toast.LENGTH_SHORT).show();
-        //implemetiraj da se savea TO-DO ako nije prazan
+        //TODO implemetiraj da se savea TO-DO ako nije prazan
     }
 }
