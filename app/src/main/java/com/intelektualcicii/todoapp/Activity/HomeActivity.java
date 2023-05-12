@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner spinner = findViewById(R.id.category_spinner);
         addTask=findViewById(R.id.add_task_floating_bt);
 
+
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this, R.array.categories_hardcoded, R.layout.dropdown_item);
         adapter.setDropDownViewResource(R.layout.dropdown_item);
         spinner.setAdapter(adapter);
