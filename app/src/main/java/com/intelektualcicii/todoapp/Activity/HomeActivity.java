@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.intelektualcicii.todoapp.Dialog.CreateNewTaskBottomSheet;
 import com.intelektualcicii.todoapp.R;
 
 
@@ -50,6 +51,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomeActivity.this, "Add to-do clicked", Toast.LENGTH_SHORT).show();
+                CreateNewTaskBottomSheet createNewTaskBottomSheet= new CreateNewTaskBottomSheet();
+                createNewTaskBottomSheet.show(getSupportFragmentManager(),"createNewTaskBottomSheet");
             }
         });
         
