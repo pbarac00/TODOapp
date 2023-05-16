@@ -31,7 +31,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     Button saveTODO;
     private String taskText;
     private Integer taskPriority;
-    FirebaseAuth firebaseAuth;
+
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -43,8 +43,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         medPriority=view.findViewById(R.id.iv_medPriority);
         highPriority=view.findViewById(R.id.iv_highPriority);
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
-        taskPriority=0; // default value (low) priority
-        firebaseAuth = FirebaseAuth.getInstance();
+        taskPriority=0; 
+
 
 
         lowPriority.setOnClickListener(new View.OnClickListener() {
@@ -99,18 +99,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         }
         else
         {
-            //TODO popravit kako se taskovi spremaju u firebase
-            String uniqueID = UUID.randomUUID().toString();
-            Task task=new Task(taskText,taskPriority,false,uniqueID);
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
-            String userID = user.getUid();
-
-            reference.child(userID).child("Task").setValue(task);
-            Toast.makeText(getContext(), "TO-DO added", Toast.LENGTH_SHORT).show();
-            dismiss();
-
+            //TODO implementirat spremanje u sqlLite bazu
         }
     }
 
