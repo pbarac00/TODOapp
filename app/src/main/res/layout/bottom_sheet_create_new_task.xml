@@ -62,7 +62,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:src="@drawable/low_priority_dark"></ImageView>
+            android:src="@drawable/low_priority"></ImageView>
 
         <ImageView
             android:id="@+id/iv_medPriority"

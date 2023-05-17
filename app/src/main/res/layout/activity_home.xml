@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_sort_az_home" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_task_floating_bt"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/iv_priortity_home"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="30dp"
@@ -86,23 +86,23 @@
         app:srcCompat="@drawable/priority" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/iv_sort_az_home"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_priortity_home"
+        app:layout_constraintStart_toEndOf="@+id/iv_priortity_home"
+        app:layout_constraintTop_toTopOf="@+id/iv_priortity_home"
         app:srcCompat="@drawable/sort_az" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/iv_sortByDate_home"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_sort_az_home"
+        app:layout_constraintStart_toEndOf="@+id/iv_sort_az_home"
+        app:layout_constraintTop_toTopOf="@+id/iv_sort_az_home"
         app:srcCompat="@drawable/deadline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
