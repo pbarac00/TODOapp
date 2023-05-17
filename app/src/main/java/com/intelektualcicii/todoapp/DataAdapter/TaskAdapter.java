@@ -28,8 +28,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        holder.taskName.setText(tasks.get(position).taskName);
-        holder.priority.setText(tasks.get(position).priority.toString());
+        holder.taskName.setText(tasks.get(position).dueDate);
+        holder.priority.setText(tasks.get(position).startedDate);
     }
 
     @Override

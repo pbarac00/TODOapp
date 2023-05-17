@@ -41,13 +41,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         logOut=findViewById(R.id.bt_logOut);
-        Spinner spinner = findViewById(R.id.category_spinner);
         addTask=findViewById(R.id.add_task_floating_bt);
 
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        taskDatabase= Room.databaseBuilder(getApplicationContext(),TaskDatabase.class,"task").allowMainThreadQueries().build();
+        taskDatabase= Room.databaseBuilder(getApplicationContext(),
+                        TaskDatabase.class,"task").
+                allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
        TaskDAO taskDAO =taskDatabase.taskDAO();
         //ovo

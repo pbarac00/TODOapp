@@ -25,6 +25,12 @@ import com.intelektualcicii.todoapp.DataHolder.Task;
 import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.time.LocalDate;
+
+import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,7 +56,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         highPriority=view.findViewById(R.id.iv_highPriority);
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
         taskPriority=0;
-        db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").build();
+        db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").
+                fallbackToDestructiveMigration().build();
 
 
 
@@ -109,9 +116,21 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             executorsService.execute(new Runnable() {
                 @Override
                 public void run() {
+                    Calendar calendar=Calendar.getInstance();
+                    calendar.set(Calendar.YEAR,2022);
+                    calendar.set(Calendar.MONTH,5);
+                    calendar.set(Calendar.DAY_OF_MONTH,3);
+                    String createdDate= DateFormat.getDateInstance().format(calendar.getTime());
                     String uniqueID=UUID.randomUUID().toString();
-                    Task note=new Task(taskText,taskPriority,false,uniqueID);
-                    db.taskDAO().insertAll(note);
+                    Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
+                    //TODO need to implement date picker this is hardcoded and optional
+                    calendar.set(Calendar.YEAR,2022);
+                    calendar.set(Calendar.MONTH,6);
+                    calendar.set(Calendar.DAY_OF_MONTH,4);
+                    String dueDate=DateFormat.getDateInstance().format(calendar.getTime());
+                    task.setDueDate(dueDate);
+
+                    db.taskDAO().insertAll(task);
 
                 }
             });
