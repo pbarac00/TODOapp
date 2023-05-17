@@ -12,7 +12,7 @@
         android:layout_width="70dp"
         android:layout_height="4dp"
         android:layout_gravity="center"
-        android:background="@drawable/round_back_application_light_blue20"
+        android:background="@drawable/round_back_light_grey20"
         ></View>
 
     <TextView
