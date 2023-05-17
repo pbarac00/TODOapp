@@ -1,7 +1,9 @@
 package com.intelektualcicii.todoapp.Dialog;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     private String taskText;
     private Integer taskPriority;
     TaskDatabase db;
+    private CreateNewTaskBottomSheetListener mListener;
 
 
     @SuppressLint("MissingInflatedId")
@@ -99,6 +102,10 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
 
     }
 
+    public interface CreateNewTaskBottomSheetListener{
+        void onDismissBottomSheetCalled(Boolean isCalled);
+    }
+
     private void setDefaultPriorityIcons(){
         lowPriority.setImageResource(R.drawable.low_priority);
         medPriority.setImageResource(R.drawable.med_priority);
@@ -135,14 +142,29 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
                 }
             });
             Toast.makeText(getContext(), "task added", Toast.LENGTH_SHORT).show();
+            mListener.onDismissBottomSheetCalled(true);
             dismiss();
         }
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mListener=(CreateNewTaskBottomSheetListener) context;
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(context.toString() + " must implement bottom sheet listener");
+        }
+    }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         //TODO implemetiraj da se savea TO-DO ako nije prazan
     }
-}
+
+
+    }
+

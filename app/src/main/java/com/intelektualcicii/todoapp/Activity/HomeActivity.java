@@ -9,11 +9,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,7 +25,7 @@ import com.intelektualcicii.todoapp.R;
 import java.util.List;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener {
 
     Button logOut;
     FloatingActionButton addTask;
@@ -36,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     TaskAdapter taskAdapter;
     TaskDatabase taskDatabase;
     ImageView sortPriority,sortAZ,sortDate;
-    Boolean isSortByPrioriyClicked, isSortByAzClicked,isSortByDateClicked;
+    Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,16 +48,16 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        isSortByPrioriyClicked=false;
+        isSortByPriorityClicked =false;
         isSortByAzClicked=false;
         isSortByDateClicked=false;
+        isAddTodoOpen=false;
 
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
        TaskDAO taskDAO =taskDatabase.taskDAO();
-        //ovo
 
 
         refreshRecyclerView();
@@ -82,19 +79,20 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CreateNewTaskBottomSheet createNewTaskBottomSheet= new CreateNewTaskBottomSheet();
                 createNewTaskBottomSheet.show(getSupportFragmentManager(),"createNewTaskBottomSheet");
+                isAddTodoOpen=true;
             }
         });
 
         sortPriority.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSortByPrioriyClicked)
+                if (isSortByPriorityClicked)
                 {
-                    isSortByPrioriyClicked=false;
+                    isSortByPriorityClicked =false;
                     sortPriority.setImageResource(R.drawable.priority);
                 }
                 else{
-                    isSortByPrioriyClicked=true;
+                    isSortByPriorityClicked =true;
                     sortPriority.setImageResource(R.drawable.priority_blue);
                 }
             }
@@ -135,18 +133,25 @@ public class HomeActivity extends AppCompatActivity {
         
     }
 
-    @Override
-    protected void onResume() {
-        Toast.makeText(this, "uslo", Toast.LENGTH_SHORT).show();
-        super.onResume();
-        refreshRecyclerView();
-    }
+
 
     private void refreshRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         taskAdapter = new TaskAdapter(tasks);
         recyclerView.setAdapter(taskAdapter);
+        Toast.makeText(this, "uslo u metodu ali nije osvjezilo zasto?", Toast.LENGTH_SHORT).show();
+        
     }
 
+
+
+
+    @Override
+    public void onDismissBottomSheetCalled(Boolean isCalled) {
+        if (isCalled){
+            Toast.makeText(this, "lucky", Toast.LENGTH_SHORT).show();
+            refreshRecyclerView();
+        }
+    }
 }
