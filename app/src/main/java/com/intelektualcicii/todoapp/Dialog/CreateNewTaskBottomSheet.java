@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Room;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,16 +22,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.intelektualcicii.todoapp.DataHolder.Task;
+import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
+    private ExecutorService executorsService= Executors.newSingleThreadExecutor();
     EditText newTODO;
     ImageView lowPriority,medPriority,highPriority;
     Button saveTODO;
     private String taskText;
     private Integer taskPriority;
+    TaskDatabase db;
 
 
     @SuppressLint("MissingInflatedId")
@@ -43,7 +49,8 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         medPriority=view.findViewById(R.id.iv_medPriority);
         highPriority=view.findViewById(R.id.iv_highPriority);
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
-        taskPriority=0; 
+        taskPriority=0;
+        db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").build();
 
 
 
@@ -52,7 +59,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 lowPriority.setImageResource(R.drawable.low_priority_dark);
-                taskPriority=1;
+                taskPriority=0;
             }
         });
 
@@ -61,7 +68,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 medPriority.setImageResource(R.drawable.medium_priority_dark);
-                taskPriority=2;
+                taskPriority=1;
             }
         });
 
@@ -70,7 +77,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 highPriority.setImageResource(R.drawable.high_priority_dark);
-                taskPriority=3;
+                taskPriority=2;
             }
         });
 
@@ -99,8 +106,17 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         }
         else
         {
+            executorsService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    String uniqueID=UUID.randomUUID().toString();
+                    Task note=new Task(taskText,taskPriority,false,uniqueID);
+                    db.taskDAO().insertAll(note);
 
-            //TODO implementirat spremanje u sqlLite bazu
+                }
+            });
+            Toast.makeText(getContext(), "task added", Toast.LENGTH_SHORT).show();
+            dismiss();
         }
     }
 
