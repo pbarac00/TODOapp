@@ -63,9 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         //ovo
 
 
-        List<Task> tasks = taskDatabase.taskDAO().getAll();
-        taskAdapter = new TaskAdapter(tasks);
-        recyclerView.setAdapter(taskAdapter);
+        refreshRecyclerView();
 
 
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -133,9 +131,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
         
     }
-    
-    
+
+    @Override
+    protected void onResume() {
+        Toast.makeText(this, "uslo", Toast.LENGTH_SHORT).show();
+        super.onResume();
+        refreshRecyclerView();
+    }
+
+    private void refreshRecyclerView()
+    {
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        taskAdapter = new TaskAdapter(tasks);
+        recyclerView.setAdapter(taskAdapter);
+    }
 
 }
