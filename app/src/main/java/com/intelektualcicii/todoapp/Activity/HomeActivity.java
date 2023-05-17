@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
        TaskDAO taskDAO =taskDatabase.taskDAO();
 
 
-        refreshRecyclerView();
+        setDataInRecyclerView();
 
 
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -135,13 +135,11 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
 
 
 
-    private void refreshRecyclerView()
+    private void setDataInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         taskAdapter = new TaskAdapter(tasks);
         recyclerView.setAdapter(taskAdapter);
-        Toast.makeText(this, "uslo u metodu ali nije osvjezilo zasto?", Toast.LENGTH_SHORT).show();
-        
     }
 
 
@@ -150,8 +148,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
     @Override
     public void onDismissBottomSheetCalled(Boolean isCalled) {
         if (isCalled){
-            Toast.makeText(this, "lucky", Toast.LENGTH_SHORT).show();
-            refreshRecyclerView();
+            setDataInRecyclerView();
         }
     }
 }
