@@ -24,6 +24,7 @@ import com.intelektualcicii.todoapp.R;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 
 public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener {
@@ -96,7 +97,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 else{
                     isSortByPriorityClicked =true;
                     sortPriority.setImageResource(R.drawable.priority_blue);
-
+                    sortDataInRvByPriority();
                 }
             }
         });
@@ -114,6 +115,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 else{
                     isSortByDateClicked=true;
                     sortDate.setImageResource(R.drawable.deadline_blue);
+
                 }
             }
         });
@@ -130,6 +132,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 else{
                     isSortByAzClicked=true;
                     sortAZ.setImageResource(R.drawable.sort_az_blue);
+                    sortDataInRvByName();
                 }
             }
         });
@@ -150,7 +153,35 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
     private void sortDataInRvByPriority()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
-        Collections.sort(tasks);
+        tasks.sort((o1, o2)
+                -> o2.priority.compareTo(
+                o1.priority));
+        taskAdapter = new TaskAdapter(tasks);
+        recyclerView.setAdapter(taskAdapter);
+    }
+
+    private void sortDataInRvByName()
+    {
+        //ako je sort by priority upaljen, prvo sortira po prioritetu i onda ove sta imaju isti prioritet sortira po imenu
+        if (isSortByPriorityClicked){
+            //sortitaj po prioritetu
+            //oni koji imaju isti prioritet sortitaj po imenu
+            List<Task> tasks = taskDatabase.taskDAO().getAll();
+            tasks.sort((o1, o2)
+                    -> o1.taskName.toLowerCase(Locale.ROOT).compareTo(
+                    o2.taskName.toLowerCase(Locale.ROOT)));
+            taskAdapter = new TaskAdapter(tasks);
+        }
+        else{
+            //ako nije upaljen samo ovo
+            List<Task> tasks = taskDatabase.taskDAO().getAll();
+            tasks.sort((o1, o2)
+                    -> o1.taskName.toLowerCase(Locale.ROOT).compareTo(
+                    o2.taskName.toLowerCase(Locale.ROOT)));
+            taskAdapter = new TaskAdapter(tasks);
+        }
+
+        recyclerView.setAdapter(taskAdapter);
     }
 
 
