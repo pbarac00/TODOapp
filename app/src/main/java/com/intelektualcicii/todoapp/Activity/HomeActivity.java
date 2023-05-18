@@ -22,6 +22,7 @@ import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.Dialog.CreateNewTaskBottomSheet;
 import com.intelektualcicii.todoapp.R;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -90,10 +91,12 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 {
                     isSortByPriorityClicked =false;
                     sortPriority.setImageResource(R.drawable.priority);
+                    setDataInRecyclerView();
                 }
                 else{
                     isSortByPriorityClicked =true;
                     sortPriority.setImageResource(R.drawable.priority_blue);
+
                 }
             }
         });
@@ -106,6 +109,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 {
                     isSortByDateClicked=false;
                     sortDate.setImageResource(R.drawable.deadline);
+                    setDataInRecyclerView();
                 }
                 else{
                     isSortByDateClicked=true;
@@ -121,6 +125,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 {
                     isSortByAzClicked=false;
                     sortAZ.setImageResource(R.drawable.sort_az);
+                    setDataInRecyclerView();
                 }
                 else{
                     isSortByAzClicked=true;
@@ -142,7 +147,11 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         recyclerView.setAdapter(taskAdapter);
     }
 
-
+    private void sortDataInRvByPriority()
+    {
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        Collections.sort(tasks);
+    }
 
 
     @Override

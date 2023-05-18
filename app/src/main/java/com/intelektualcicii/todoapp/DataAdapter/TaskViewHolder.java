@@ -1,6 +1,7 @@
 package com.intelektualcicii.todoapp.DataAdapter;
 
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
-    TextView taskText,startedDate,dueDate;
+    TextView taskText,dueDate,hardcodedDueDate;
     ImageView priority;
     ImageView notDoneCircle;
 
@@ -22,24 +23,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         this.priority=itemView.findViewById(R.id.priority_rv_task);
         this.dueDate=itemView.findViewById(R.id.dueDate_rv_task);
         this.notDoneCircle=itemView.findViewById(R.id.recyclerview_notDone_circle);
-
-
-
-
-        notDoneCircle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notDoneCircle.setImageResource(R.drawable.done_circle);
-
-
-            }
-        });
-
-
-
+        this.hardcodedDueDate=itemView.findViewById(R.id.rv_home_task_hardcoded_dueText);
     }
-    public void deleteTask(int position){
 
-
-    }
 }

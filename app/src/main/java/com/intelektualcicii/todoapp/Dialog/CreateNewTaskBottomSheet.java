@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
-    private ExecutorService executorsService= Executors.newSingleThreadExecutor();
+
     EditText newTODO;
     ImageView lowPriority,medPriority,highPriority;
     Button saveTODO;
@@ -49,6 +49,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     private Integer taskPriority;
     TaskDatabase db;
     private CreateNewTaskBottomSheetListener mListener;
+    private ExecutorService executorsService= Executors.newSingleThreadExecutor();
     private Handler handler = HandlerCompat.createAsync(Looper.getMainLooper());
 
 
@@ -128,18 +129,19 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
                 @Override
                 public void run() {
                     Calendar calendar=Calendar.getInstance();
-                    calendar.set(Calendar.YEAR,2022);
-                    calendar.set(Calendar.MONTH,5);
-                    calendar.set(Calendar.DAY_OF_MONTH,3);
+                    calendar.set(Calendar.YEAR,2021);
+                    calendar.set(Calendar.MONTH,4);
+                    calendar.set(Calendar.DAY_OF_MONTH,9);
                     String createdDate= DateFormat.getDateInstance().format(calendar.getTime());
                     String uniqueID=UUID.randomUUID().toString();
                     Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
                     //TODO need to implement date picker this is hardcoded and optional
-                    calendar.set(Calendar.YEAR,2022);
-                    calendar.set(Calendar.MONTH,6);
-                    calendar.set(Calendar.DAY_OF_MONTH,4);
-                    String dueDate=DateFormat.getDateInstance().format(calendar.getTime());
-                    task.setDueDate(dueDate);
+
+//                    calendar.set(Calendar.YEAR,2023);
+//                    calendar.set(Calendar.MONTH,4);
+//                    calendar.set(Calendar.DAY_OF_MONTH,4);
+//                    String createdDate2= DateFormat.getDateInstance().format(calendar.getTime());
+//                    task.setDueDate(createdDate2);
 
                     db.taskDAO().insertAll(task);
 
