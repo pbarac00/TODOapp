@@ -31,6 +31,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 notDoneCircle.setImageResource(R.drawable.done_circle);
 
+
             }
         });
 

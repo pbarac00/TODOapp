@@ -30,6 +30,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         holder.taskText.setText(tasks.get(position).taskName);
         holder.dueDate.setText(tasks.get(position).dueDate);
+        if (tasks.get(position).priority==1)
+        {
+            holder.priority.setImageResource(R.drawable.med_priority);
+        }
+        else if (tasks.get(position).priority==2)
+        {
+            holder.priority.setImageResource(R.drawable.high_priority);
+        }
     }
 
     @Override
