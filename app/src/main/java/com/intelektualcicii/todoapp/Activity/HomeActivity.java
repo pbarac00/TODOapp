@@ -23,6 +23,7 @@ import com.intelektualcicii.todoapp.Dialog.CreateNewTaskBottomSheet;
 import com.intelektualcicii.todoapp.R;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -115,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 else{
                     isSortByDateClicked=true;
                     sortDate.setImageResource(R.drawable.deadline_blue);
-
+                    sortDataInRvByDate();
                 }
             }
         });
@@ -141,6 +142,10 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         
     }
 
+    private void sortDataInRvByDate() {
+        
+
+    }
 
 
     private void setDataInRecyclerView()
