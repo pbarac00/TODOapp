@@ -51,7 +51,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             holder.priority.setImageResource(R.drawable.high_priority);
         }
 
-        if (tasks.get(holder.getAdapterPosition()).dueDate!=null){
+        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
+        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
+        if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
             holder.hardcodedDueDate.setText("Due date: ");
             holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
         }

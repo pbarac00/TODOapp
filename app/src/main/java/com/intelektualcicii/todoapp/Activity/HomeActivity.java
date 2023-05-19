@@ -48,23 +48,19 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         sortPriority=findViewById(R.id.iv_priortity_home);
         sortAZ=findViewById(R.id.iv_sort_az_home);
         sortDate=findViewById(R.id.iv_sortByDate_home);
-
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         isSortByPriorityClicked =false;
         isSortByAzClicked=false;
         isSortByDateClicked=false;
         isAddTodoOpen=false;
-
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
-
        TaskDAO taskDAO =taskDatabase.taskDAO();
 
 
         setDataInRecyclerView();
-
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +72,6 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 finish();
             }
         });
-        
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +97,6 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 }
             }
         });
-
-
         sortDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +113,6 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                 }
             }
         });
-
         sortAZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,17 +134,22 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         
     }
 
-    private void sortDataInRvByDate() {
-        
-
-    }
-
-
     private void setDataInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         taskAdapter = new TaskAdapter(tasks);
         recyclerView.setAdapter(taskAdapter);
+    }
+
+    private void sortDataInRvByDate()
+    {
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        tasks.sort((o1, o2)
+                -> o2.getDueDate().compareTo(
+                o1.getDueDate()));
+        taskAdapter = new TaskAdapter(tasks);
+        recyclerView.setAdapter(taskAdapter);
+
     }
 
     private void sortDataInRvByPriority()

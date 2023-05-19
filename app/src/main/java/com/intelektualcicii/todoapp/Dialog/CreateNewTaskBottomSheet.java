@@ -77,10 +77,6 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         currYear=calendar.get((calendar.YEAR));
         currMonth=calendar.get((calendar.MONTH));
         currDay=calendar.get((calendar.DAY_OF_MONTH));
-
-
-
-
         db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").
                 fallbackToDestructiveMigration().build();
 
@@ -189,10 +185,9 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
                     String uniqueID=UUID.randomUUID().toString();
                     Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
 
-                    if (isDueDateSet)
-                    {
+
                         task.setDueDate(dueDate);
-                    }
+
 
                     db.taskDAO().insertAll(task);
 
