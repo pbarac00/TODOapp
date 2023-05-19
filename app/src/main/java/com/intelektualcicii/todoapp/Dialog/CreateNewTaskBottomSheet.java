@@ -51,6 +51,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     private Integer taskPriority;
     private String dueDate;
     TaskDatabase db;
+    Calendar calendar;
     int currYear,currMonth,currDay;
     private CreateNewTaskBottomSheetListener mListener;
     private ExecutorService executorsService= Executors.newSingleThreadExecutor();
@@ -72,7 +73,7 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         taskPriority=0;
         isDueDateSet=false;
         dueDate="";
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         currYear=calendar.get((calendar.YEAR));
         currMonth=calendar.get((calendar.MONTH));
         currDay=calendar.get((calendar.DAY_OF_MONTH));
@@ -139,8 +140,12 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar=Calendar.getInstance();
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                dueDate=DateFormat.getDateInstance().format(calendar.getTime());
 
-                    dueDate= DateFormat.getDateInstance().format(calendar.getTime());
+                Toast.makeText(getContext(), dueDate.toString(), Toast.LENGTH_SHORT).show();
                     if (!dueDate.isEmpty())
                     {
                         isDueDateSet=true;
@@ -171,11 +176,10 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             executorsService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    Calendar calendar=Calendar.getInstance();
+
                     String createdDate= DateFormat.getDateInstance().format(calendar.getTime());
                     String uniqueID=UUID.randomUUID().toString();
                     Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
-                    //TODO need to implement date picker this is hardcoded and optional
 
                     if (isDueDateSet)
                     {
@@ -210,12 +214,6 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         {
             throw new ClassCastException(context.toString() + " must implement bottom sheet listener");
         }
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        //TODO implemetiraj da se savea TO-DO ako nije prazan
     }
 
 
