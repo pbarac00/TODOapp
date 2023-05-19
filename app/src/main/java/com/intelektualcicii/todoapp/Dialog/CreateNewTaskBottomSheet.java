@@ -1,6 +1,7 @@
 package com.intelektualcicii.todoapp.Dialog;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,14 +45,17 @@ import java.util.concurrent.Executors;
 public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
 
     EditText newTODO;
-    ImageView lowPriority,medPriority,highPriority;
+    ImageView lowPriority,medPriority,highPriority,setDueDate;
     Button saveTODO;
     private String taskText;
     private Integer taskPriority;
+    private String dueDate;
     TaskDatabase db;
+    int currYear,currMonth,currDay;
     private CreateNewTaskBottomSheetListener mListener;
     private ExecutorService executorsService= Executors.newSingleThreadExecutor();
     private Handler handler = HandlerCompat.createAsync(Looper.getMainLooper());
+    Boolean isDueDateSet;
 
 
     @SuppressLint("MissingInflatedId")
@@ -63,7 +68,18 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         medPriority=view.findViewById(R.id.iv_medPriority);
         highPriority=view.findViewById(R.id.iv_highPriority);
         saveTODO=view.findViewById(R.id.bt_saveNewTODO);
+        setDueDate=view.findViewById(R.id.iv_setDuedate);
         taskPriority=0;
+        isDueDateSet=false;
+        dueDate="";
+        Calendar calendar = Calendar.getInstance();
+        currYear=calendar.get((calendar.YEAR));
+        currMonth=calendar.get((calendar.MONTH));
+        currDay=calendar.get((calendar.DAY_OF_MONTH));
+
+
+
+
         db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").
                 fallbackToDestructiveMigration().build();
 
@@ -103,12 +119,39 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
+        setDueDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDueDateDialog();
+            }
+        });
+
         return view;
 
     }
 
     public interface CreateNewTaskBottomSheetListener{
         void onDismissBottomSheetCalled(Boolean isCalled);
+    }
+
+    private void setDueDateDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar calendar=Calendar.getInstance();
+
+                    dueDate= DateFormat.getDateInstance().format(calendar.getTime());
+                    if (!dueDate.isEmpty())
+                    {
+                        isDueDateSet=true;
+                    }
+                    if (isDueDateSet)
+                    {
+                        setDueDate.setImageResource(R.drawable.schedule_dark);
+                    }
+            }
+        }, currYear, currMonth, currDay);
+        datePickerDialog.show();
     }
 
     private void setDefaultPriorityIcons(){
@@ -129,19 +172,15 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
                 @Override
                 public void run() {
                     Calendar calendar=Calendar.getInstance();
-                    calendar.set(Calendar.YEAR,2021);
-                    calendar.set(Calendar.MONTH,4);
-                    calendar.set(Calendar.DAY_OF_MONTH,9);
                     String createdDate= DateFormat.getDateInstance().format(calendar.getTime());
                     String uniqueID=UUID.randomUUID().toString();
                     Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
                     //TODO need to implement date picker this is hardcoded and optional
 
-//                    calendar.set(Calendar.YEAR,2023);
-//                    calendar.set(Calendar.MONTH,4);
-//                    calendar.set(Calendar.DAY_OF_MONTH,4);
-//                    String createdDate2= DateFormat.getDateInstance().format(calendar.getTime());
-//                    task.setDueDate(createdDate2);
+                    if (isDueDateSet)
+                    {
+                        task.setDueDate(dueDate);
+                    }
 
                     db.taskDAO().insertAll(task);
 
