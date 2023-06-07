@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener {
 
-    Button logOut;
+    Button logOut,testButton;
     FloatingActionButton addTask;
     RecyclerView recyclerView;
     TaskAdapter taskAdapter;
@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         isSortByAzClicked=false;
         isSortByDateClicked=false;
         isAddTodoOpen=false;
+        testButton=findViewById(R.id.testButton);
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
@@ -61,6 +62,13 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
 
 
         setDataInRecyclerView();
+
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, TaskDetailActivity.class));
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,52 +89,43 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
             }
         });
 
-        sortPriority.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSortByPriorityClicked)
-                {
-                    isSortByPriorityClicked =false;
-                    sortPriority.setImageResource(R.drawable.priority);
-                    setDataInRecyclerView();
-                }
-                else{
-                    isSortByPriorityClicked =true;
-                    sortPriority.setImageResource(R.drawable.priority_blue);
-                    sortDataInRvByPriority();
-                }
+        sortPriority.setOnClickListener( v -> {
+            if (isSortByPriorityClicked)
+            {
+                isSortByPriorityClicked =false;
+                sortPriority.setImageResource(R.drawable.priority);
+                setDataInRecyclerView();
+            }
+            else{
+                isSortByPriorityClicked =true;
+                sortPriority.setImageResource(R.drawable.priority_blue);
+                sortDataInRvByPriority();
             }
         });
-        sortDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSortByDateClicked)
-                {
-                    isSortByDateClicked=false;
-                    sortDate.setImageResource(R.drawable.deadline);
-                    setDataInRecyclerView();
-                }
-                else{
-                    isSortByDateClicked=true;
-                    sortDate.setImageResource(R.drawable.deadline_blue);
-                    sortDataInRvByDate();
-                }
+        sortDate.setOnClickListener(v -> {
+            if (isSortByDateClicked)
+            {
+                isSortByDateClicked=false;
+                sortDate.setImageResource(R.drawable.deadline);
+                setDataInRecyclerView();
+            }
+            else{
+                isSortByDateClicked=true;
+                sortDate.setImageResource(R.drawable.deadline_blue);
+                sortDataInRvByDate();
             }
         });
-        sortAZ.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSortByAzClicked)
-                {
-                    isSortByAzClicked=false;
-                    sortAZ.setImageResource(R.drawable.sort_az);
-                    setDataInRecyclerView();
-                }
-                else{
-                    isSortByAzClicked=true;
-                    sortAZ.setImageResource(R.drawable.sort_az_blue);
-                    sortDataInRvByName();
-                }
+        sortAZ.setOnClickListener(v -> {
+            if (isSortByAzClicked)
+            {
+                isSortByAzClicked=false;
+                sortAZ.setImageResource(R.drawable.sort_az);
+                setDataInRecyclerView();
+            }
+            else{
+                isSortByAzClicked=true;
+                sortAZ.setImageResource(R.drawable.sort_az_blue);
+                sortDataInRvByName();
             }
         });
 

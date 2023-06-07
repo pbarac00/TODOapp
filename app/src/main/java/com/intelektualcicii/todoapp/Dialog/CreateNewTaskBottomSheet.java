@@ -183,12 +183,10 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
 
                     String createdDate= DateFormat.getDateInstance().format(calendar.getTime());
                     String uniqueID=UUID.randomUUID().toString();
+
+
                     Task task=new Task(taskText,taskPriority,false,uniqueID, createdDate);
-
-
-                        task.setDueDate(dueDate);
-
-
+                    task.setDueDate(dueDate);
                     db.taskDAO().insertAll(task);
 
 

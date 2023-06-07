@@ -12,16 +12,22 @@ import java.util.UUID;
 
 @Entity
 public class Task {
+
     @PrimaryKey @NonNull
     public String taskId;
+
     @ColumnInfo(name="taskName")
     public String taskName;
+
     @ColumnInfo(name="priority")
     public Integer priority; // low-0, medium-1, high-2
+
     @ColumnInfo(name="isFinished")
     public boolean isFinished;
+
     @ColumnInfo(name="startedDate")
     public String startedDate;
+
     public String dueDate;
 
 
