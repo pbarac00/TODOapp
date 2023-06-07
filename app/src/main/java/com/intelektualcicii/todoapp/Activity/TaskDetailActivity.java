@@ -18,14 +18,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
-        editTask=findViewById(R.id.iv_editTask);
 
-        editTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TaskDetailActivity.this,EditTaskActivity.class));
-            }
-        });
 
     }
 }
