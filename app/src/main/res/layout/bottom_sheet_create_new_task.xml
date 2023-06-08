@@ -51,7 +51,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="40dp"
-            android:text="PRIORITY"
+            android:text="Priority:"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>
 
@@ -93,7 +93,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="0dp"
             android:layout_marginBottom="40dp"
-            android:text="DUE DATE"
+            android:text="Due date:"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>
 

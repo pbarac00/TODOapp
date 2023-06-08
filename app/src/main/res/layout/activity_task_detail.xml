@@ -24,12 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="CREATED DATE"
+        android:text="Created date:"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:text="CREATED DATE" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -60,12 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="DUE DATE"
+        android:text="Due date:"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        tools:text="DUE DATE" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView10"
@@ -73,12 +71,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="PRIORITY"
+        android:text="Priority:"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
-        tools:text="PRIORITY" />
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView13"
@@ -90,8 +87,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_taskText_task_detail"
-        tools:text="DONE" />
+        app:layout_constraintTop_toBottomOf="@+id/et_taskText_task_detail" />
 
     <ImageView
         android:id="@+id/bt_back_task_detail"
@@ -109,12 +105,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:text="TASK"
         android:textSize="16sp"
+        android:text="Task:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        tools:text="TASK" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <EditText
         android:id="@+id/et_taskText_task_detail"
