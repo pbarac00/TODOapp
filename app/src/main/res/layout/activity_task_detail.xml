@@ -24,12 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="Created Date:"
+        android:text="CREATED DATE"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:text="Created Date:" />
+        tools:text="CREATED DATE" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -60,12 +60,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="Due Date:"
+        android:text="DUE DATE"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
-        tools:text="Due Date:" />
+        tools:text="DUE DATE" />
 
     <TextView
         android:id="@+id/textView10"
@@ -73,12 +73,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:text="Priority:"
+        android:text="PRIORITY"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
-        tools:text="Priority:" />
+        tools:text="PRIORITY" />
 
     <TextView
         android:id="@+id/textView13"
@@ -91,7 +91,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_taskText_task_detail"
-        tools:text="Done:" />
+        tools:text="DONE" />
 
     <ImageView
         android:id="@+id/bt_back_task_detail"
@@ -109,12 +109,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:text="Task:"
+        android:text="TASK"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
-        tools:text="Task:" />
+        tools:text="TASK" />
 
     <EditText
         android:id="@+id/et_taskText_task_detail"
@@ -207,8 +207,10 @@
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/siwtch_doneOnOff_task_detail"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         android:showText="true"
         android:textOff="Not finished"
         android:textOn="Finished"
