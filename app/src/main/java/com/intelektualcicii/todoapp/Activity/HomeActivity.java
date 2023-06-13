@@ -34,7 +34,8 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener, NavigationView.OnNavigationItemSelectedListener  {
+public class HomeActivity extends AppCompatActivity implements
+        CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener, NavigationView.OnNavigationItemSelectedListener  {
 
     Button logOut,testButton;
     FloatingActionButton addTask;
@@ -45,8 +46,8 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
 
 
-    public DrawerLayout drawerLayout;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -83,6 +84,7 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
 
 
         setDataInRecyclerView();
+
 
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
