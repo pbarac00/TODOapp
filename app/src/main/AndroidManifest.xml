@@ -54,6 +54,7 @@
             android:name=".Activity.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.TODOapp.NoActionBar"
            >
             <meta-data
                 android:name="android.app.lib_name"

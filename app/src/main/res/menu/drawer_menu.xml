@@ -19,7 +19,7 @@
     <item android:title="Profile">
         <menu>
             <item
-                android:id="@+id/naav3"
+                android:id="@+id/log_out"
                 android:icon="@drawable/schedule_dark"
                 android:title="Log out" />
             <item

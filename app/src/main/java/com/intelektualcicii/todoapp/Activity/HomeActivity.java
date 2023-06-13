@@ -12,6 +12,7 @@ import androidx.room.Room;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements
     RecyclerView recyclerView;
     TaskAdapter taskAdapter;
     TaskDatabase taskDatabase;
-    ImageView sortPriority,sortAZ,sortDate;
+    ImageView sortPriority,sortAZ,sortDate,navMenu;
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
 
 
@@ -72,19 +73,28 @@ public class HomeActivity extends AppCompatActivity implements
        TaskDAO taskDAO =taskDatabase.taskDAO();
 
 
+
+        navMenu=findViewById(R.id.iv_navMenu);
+
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         NavigationView navigationView = findViewById(R.id.nav_menu);
         navigationView.setNavigationItemSelectedListener(HomeActivity.this);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
 
         setDataInRecyclerView();
 
+
+        navMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
 
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +218,15 @@ public class HomeActivity extends AppCompatActivity implements
         recyclerView.setAdapter(taskAdapter);
     }
 
+    private void logOut(){
+
+        FirebaseAuth.getInstance().signOut();
+
+        Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(HomeActivity.this,MainActivity.class));
+        finish();
+
+    }
 
     @Override
     public void onDismissBottomSheetCalled(Boolean isCalled) {
@@ -234,9 +253,14 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.naav:
                 Toast.makeText(this, "Log ou", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.log_out:
+                logOut();
+                break;
+
         }
-        //zatvara menu
-        drawerLayout.closeDrawer(GravityCompat.START);
+        //zatvara menu logOut
+        drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
     }
 }
