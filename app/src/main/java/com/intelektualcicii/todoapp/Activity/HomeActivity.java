@@ -1,6 +1,10 @@
 package com.intelektualcicii.todoapp.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -8,12 +12,14 @@ import androidx.room.Room;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.intelektualcicii.todoapp.DataAdapter.TaskAdapter;
 import com.intelektualcicii.todoapp.DataHolder.Task;
@@ -28,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener {
+public class HomeActivity extends AppCompatActivity implements CreateNewTaskBottomSheet.CreateNewTaskBottomSheetListener, NavigationView.OnNavigationItemSelectedListener  {
 
     Button logOut,testButton;
     FloatingActionButton addTask;
@@ -37,6 +43,10 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
     TaskDatabase taskDatabase;
     ImageView sortPriority,sortAZ,sortDate;
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
+
+
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,6 +69,17 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
        TaskDAO taskDAO =taskDatabase.taskDAO();
+
+
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        NavigationView navigationView = findViewById(R.id.nav_menu);
+        navigationView.setNavigationItemSelectedListener(HomeActivity.this);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
 
         setDataInRecyclerView();
@@ -191,5 +212,29 @@ public class HomeActivity extends AppCompatActivity implements CreateNewTaskBott
         if (isCalled){
             setDataInRecyclerView();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+
+            case R.id.naav:
+                Toast.makeText(this, "Log ou", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        //zatvara menu
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Actions">
+        <menu>
+            <item
+                android:id="@+id/naav"
+                android:icon="@drawable/schedule_dark"
+                android:title="Delete all finished" />
+            <item
+                android:id="@+id/naav2"
+                android:icon="@drawable/schedule_dark"
+                android:title="Delete all tasks" />
+        </menu>
+    </item>
+
+    <item android:title="Profile">
+        <menu>
+            <item
+                android:id="@+id/naav3"
+                android:icon="@drawable/schedule_dark"
+                android:title="Log out" />
+            <item
+                android:id="@+id/naav4"
+                android:icon="@drawable/schedule_dark"
+                android:title="Delete profile" />
+        </menu>
+    </item>
+</menu>
