@@ -42,8 +42,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         bt_updateTask_task_detail=findViewById(R.id.bt_updateTask_task_detail);
         bt_deleteTask_task_detail=findViewById(R.id.bt_deleteTask_task_detail);
 
-        
 
+        et_taskText_task_detail.setText(getIntent().getParcelableExtra("taskName"));
 
 
 

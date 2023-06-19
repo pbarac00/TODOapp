@@ -1,5 +1,8 @@
 package com.intelektualcicii.todoapp.DataHolder;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,7 +14,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class Task {
+public class Task implements Parcelable {
 
     @PrimaryKey @NonNull
     public String taskId;
@@ -42,52 +45,50 @@ public class Task {
         this.startedDate=startedDate;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    //From here to end of class is the implementation of Parcelable methods,
+    // all of them are automatically generated when implementing interface
+    protected Task(Parcel in) {
+        taskId = in.readString();
+        taskName = in.readString();
+        if (in.readByte() == 0) {
+            priority = null;
+        } else {
+            priority = in.readInt();
+        }
+        isFinished = in.readByte() != 0;
+        startedDate = in.readString();
+        dueDate = in.readString();
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getStartedDate() {
-        return startedDate;
-    }
-
-    public void setStartedDate(String startedDate) {
-        this.startedDate = startedDate;
-    }
-
-    @NonNull
-    public String getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(@NonNull String taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public boolean isFinished() {
-        return isFinished;
-    }
-
-    public void setFinished(boolean finished) {
-        isFinished = finished;
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(taskId);
+        dest.writeString(taskName);
+        if (priority == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(priority);
+        }
+        dest.writeByte((byte) (isFinished ? 1 : 0));
+        dest.writeString(startedDate);
+        dest.writeString(dueDate);
     }
 }

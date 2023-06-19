@@ -312,9 +312,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(int position) {
+        //ovo je kriva logika prominit kasnije
         List<Task> tasks = taskDatabase.taskDAO().getAll();
-        Toast.makeText(this, tasks.get(position).taskName, Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
         intent.putExtra("taskName", tasks.get(position).taskName);
         intent.putExtra("taskDueDate", tasks.get(position).dueDate);
