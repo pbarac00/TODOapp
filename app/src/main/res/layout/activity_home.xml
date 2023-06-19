@@ -73,12 +73,21 @@
             android:layout_height="match_parent"
            >
 
-        
+
+            <View
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="104dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/round_back_light_grey20"
+                ></View>
+
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="62dp"
+                android:layout_marginBottom="56dp"
                 android:layout_gravity="bottom"
                 >
 
