@@ -6,7 +6,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
@@ -16,6 +15,9 @@ import androidx.room.Room;
 import com.intelektualcicii.todoapp.DataHolder.Task;
 import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
+import com.intelektualcicii.todoapp.SelectItemListener;
+import com.intelektualcicii.todoapp.SelectListener;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,19 +26,21 @@ import java.util.concurrent.Executors;
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     List<Task> tasks;
     TaskDatabase db;
+    private SelectItemListener listener;
     private ExecutorService executorsService= Executors.newSingleThreadExecutor();
     private Handler handler = HandlerCompat.createAsync(Looper.getMainLooper());
 
 
-    public TaskAdapter(List<Task> tasks) {
+    public TaskAdapter(List<Task> tasks, SelectItemListener listener) {
         this.tasks = tasks;
+        this.listener=listener;
     }
 
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recylerview_home_tasks_card,parent,false);
-        return new TaskViewHolder(view);
+        return new TaskViewHolder(view, listener);
     }
 
     @Override
