@@ -70,7 +70,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     public void run() {
                         db= Room.databaseBuilder(v.getContext(), TaskDatabase.class, "task").
                                 fallbackToDestructiveMigration().build();
-                       // db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
+                       db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
                         // prominit da ne brise nego da minja isFinished tj koristit UPDATE
                         handler.post(new Runnable() {
                             @Override

@@ -161,12 +161,12 @@ public class HomeActivity extends AppCompatActivity implements
 
 
         for (Task task : tasks) {
-            if (task.isFinished==true){
+            if (task.isFinished==false){
                 notFinishedTasks.add(task);
             }
             }
 
-        if (notFinishedTasks.size()>1){
+        if (notFinishedTasks.size()>0){
             taskAdapter = new TaskAdapter(notFinishedTasks);
             recyclerView.setAdapter(taskAdapter);
         }
