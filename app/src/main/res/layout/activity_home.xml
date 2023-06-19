@@ -14,8 +14,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_sortByDate_home2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="52dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/deadline" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -40,93 +49,45 @@
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <Button
-            android:id="@+id/bt_logOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="Log out"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewHomeTasks"
             android:layout_width="match_parent"
             android:layout_height="450dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="15dp"
             android:text="Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
                        Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
                         Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
                        Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_sort_az_home" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_task_floating_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:clickable="true"
-            android:background="@color/applicationLightBlue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="70dp"
-            android:text="SORT BY:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
         <ImageView
             android:id="@+id/iv_priortity_home"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="52dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_sortByDate_home"
             app:srcCompat="@drawable/priority" />
-
-        <ImageView
-            android:id="@+id/iv_sort_az_home"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_priortity_home"
-            app:layout_constraintStart_toEndOf="@+id/iv_priortity_home"
-            app:layout_constraintTop_toTopOf="@+id/iv_priortity_home"
-            app:srcCompat="@drawable/sort_az" />
 
         <ImageView
             android:id="@+id/iv_sortByDate_home"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_sort_az_home"
-            app:layout_constraintStart_toEndOf="@+id/iv_sort_az_home"
-            app:layout_constraintTop_toTopOf="@+id/iv_sort_az_home"
-            app:srcCompat="@drawable/deadline" />
-
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="16dp"
-            android:text="Button"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="52dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bt_logOut" />
+            app:layout_constraintEnd_toStartOf="@+id/iv_sortByDate_home2"
+            app:srcCompat="@drawable/deadline" />
 
         <ImageView
             android:id="@+id/iv_navMenu"
@@ -138,6 +99,57 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_menu_24" />
 
+        <ImageView
+            android:id="@+id/iv_sort_az_home"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="52dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_priortity_home"
+            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/sort_az" />
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:fabCradleMargin="10dp"
+                app:fabCradleRoundedCornerRadius="50dp"
+                app:fabCradleVerticalOffset="10dp">
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="35dp"
+                    android:background="@drawable/transparent_background"
+                    app:labelVisibilityMode="labeled"
+                    app:menu="@menu/bottom_menu">
+
+                </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+            </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_task_floating_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/applicationLightBlue"
+                android:clickable="true"
+                app:layout_anchor="@id/bottomAppBar"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -146,5 +158,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:layout_constraintStart_toStartOf="parent"
+        app:headerLayout="@layout/navigation_drawer_header"
         app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/tv_dueDate_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="35dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:text="Hardkodiarano"
@@ -130,22 +130,21 @@
         android:id="@+id/bt_updateTask_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="40dp"
         android:text="Update "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bt_deleteTask_task_detail" />
+        app:layout_constraintBottom_toTopOf="@+id/bt_deleteTask_task_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_deleteTask_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#fc0303"
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/iv_priorityHigh_task_detail"
@@ -171,7 +170,7 @@
         android:id="@+id/iv_priorityLow_task_detail"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView10"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10"
@@ -181,7 +180,7 @@
         android:id="@+id/tv_createdDate_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="10dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:text="Hardkodiarano"
@@ -197,15 +196,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_dueDate_task_detail"
         app:layout_constraintStart_toEndOf="@+id/tv_dueDate_task_detail"
         app:layout_constraintTop_toTopOf="@+id/tv_dueDate_task_detail"
-        app:srcCompat="@drawable/ic_outline_edit_calendar_24" />
+        app:srcCompat="@drawable/schedule" />
+
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/siwtch_doneOnOff_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="70dp"
         android:scaleX="1.5"
-        android:scaleY="1.5"
+        android:scaleY="1.3"
         android:showText="true"
         android:textOff="Not finished"
         android:textOn="Finished"

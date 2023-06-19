@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+        <item android:id="@+id/active_task"
+            android:title="ACTIVE"
+            android:icon="@drawable/schedule_dark">
+        </item>
+
+        <item android:id="@+id/finished_task"
+            android:title="FINISHED"
+            android:icon="@drawable/schedule_dark">
+        </item>
+
+        <item android:id="@+id/placeholder"
+            android:title=""
+            >
+        </item>
+
+        <item android:id="@+id/activee_task"
+            android:title="ACTIVE"
+            android:icon="@drawable/schedule_dark">
+        </item>
+
+        <item android:id="@+id/finishedd_task"
+            android:title="FINISHED"
+            android:icon="@drawable/schedule_dark">
+        </item>
+
+
+</menu>

@@ -2,6 +2,7 @@ package com.intelektualcicii.todoapp.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -55,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        logOut=findViewById(R.id.bt_logOut);
+
         addTask=findViewById(R.id.add_task_floating_bt);
         sortPriority=findViewById(R.id.iv_priortity_home);
         sortAZ=findViewById(R.id.iv_sort_az_home);
@@ -66,7 +68,7 @@ public class HomeActivity extends AppCompatActivity implements
         isSortByAzClicked=false;
         isSortByDateClicked=false;
         isAddTodoOpen=false;
-        testButton=findViewById(R.id.testButton);
+
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
@@ -96,23 +98,8 @@ public class HomeActivity extends AppCompatActivity implements
             }
         });
 
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, TaskDetailActivity.class));
-            }
-        });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
 
-                Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(HomeActivity.this,MainActivity.class));
-                finish();
-            }
-        });
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,12 +206,28 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void logOut(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseAuth.getInstance().signOut();
 
-        FirebaseAuth.getInstance().signOut();
+                Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this,MainActivity.class));
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
 
-        Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(HomeActivity.this,MainActivity.class));
-        finish();
+
 
     }
 
@@ -250,12 +253,20 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
 
-            case R.id.naav:
-                Toast.makeText(this, "Log ou", Toast.LENGTH_SHORT).show();
+            case R.id.delete_finished:
+                Toast.makeText(this, "need to implement delete finished", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.delete_all_task:
+                Toast.makeText(this, "need to implement delete all", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.log_out:
                 logOut();
+                break;
+
+            case R.id.delete_account:
+                Toast.makeText(this, "need to implement delete account", Toast.LENGTH_SHORT).show();
                 break;
 
         }
