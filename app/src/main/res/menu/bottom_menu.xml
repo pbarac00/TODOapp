@@ -4,14 +4,14 @@
 
 
 
-        <item android:id="@+id/active_task"
-            android:title="ACTIVE"
-            android:icon="@drawable/schedule_dark">
+        <item android:id="@+id/sortByName"
+            android:title="Name"
+            android:icon="@drawable/sort_az">
         </item>
 
-        <item android:id="@+id/finished_task"
-            android:title="FINISHED"
-            android:icon="@drawable/schedule_dark">
+        <item android:id="@+id/sortByPriority"
+            android:title="Priority"
+            android:icon="@drawable/priority">
         </item>
 
         <item android:id="@+id/placeholder"
@@ -19,14 +19,14 @@
             >
         </item>
 
-        <item android:id="@+id/activee_task"
-            android:title="ACTIVE"
-            android:icon="@drawable/schedule_dark">
+        <item android:id="@+id/sortByCreatedDate"
+            android:title="Created date"
+            android:icon="@drawable/deadline">
         </item>
 
-        <item android:id="@+id/finishedd_task"
-            android:title="FINISHED"
-            android:icon="@drawable/schedule_dark">
+        <item android:id="@+id/sortByStartedDate"
+            android:title="Due date"
+            android:icon="@drawable/deadline">
         </item>
 
 
