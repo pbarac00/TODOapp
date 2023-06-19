@@ -1,5 +1,6 @@
 package com.intelektualcicii.todoapp.DataAdapter;
 
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -63,13 +64,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             @Override
             public void onClick(View v) {
                 holder.notDoneCircle.setImageResource(R.drawable.done_circle);
+                holder.taskText.setPaintFlags(holder.taskText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 executorsService.execute(new Runnable() {
                     @Override
                     public void run() {
                         db= Room.databaseBuilder(v.getContext(), TaskDatabase.class, "task").
                                 fallbackToDestructiveMigration().build();
-                        db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
-
+                       // db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
+                        // prominit da ne brise nego da minja isFinished tj koristit UPDATE
                         handler.post(new Runnable() {
                             @Override
                             public void run() {

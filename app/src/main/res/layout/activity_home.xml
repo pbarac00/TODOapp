@@ -46,14 +46,8 @@
             android:layout_height="560dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="60dp"
-
             android:layout_marginEnd="15dp"
-            android:text="Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
-                       Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
-                        Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka
-                       Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka Ispis zadataka"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
            />
@@ -76,7 +70,6 @@
             android:id="@+id/coordinator"
            >
 
-
             <View
                 android:id="@+id/testId"
                 android:layout_gravity="bottom"
@@ -85,7 +78,6 @@
                 android:layout_height="2dp"
                 android:background="@drawable/round_back_light_grey20"
                 ></View>
-
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -99,8 +91,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Active" />
-
-
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

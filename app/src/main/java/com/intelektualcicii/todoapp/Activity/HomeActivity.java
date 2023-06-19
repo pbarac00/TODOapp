@@ -31,6 +31,7 @@ import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.Dialog.CreateNewTaskBottomSheet;
 import com.intelektualcicii.todoapp.R;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -154,8 +155,22 @@ public class HomeActivity extends AppCompatActivity implements
     private void setDataInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
-        taskAdapter = new TaskAdapter(tasks);
-        recyclerView.setAdapter(taskAdapter);
+        List<Task> notFinishedTasks = new ArrayList<>();
+        //izbacit taskove kojima je isFinished YES
+        //unfinishedTasks
+
+
+        for (Task task : tasks) {
+            if (task.isFinished==true){
+                notFinishedTasks.add(task);
+            }
+            }
+
+        if (notFinishedTasks.size()>1){
+            taskAdapter = new TaskAdapter(notFinishedTasks);
+            recyclerView.setAdapter(taskAdapter);
+        }
+
     }
 
     private void sortDataInRvByDate()
