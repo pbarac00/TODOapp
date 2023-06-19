@@ -16,7 +16,7 @@ import com.intelektualcicii.todoapp.DataHolder.Task;
 import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 import com.intelektualcicii.todoapp.SelectItemListener;
-import com.intelektualcicii.todoapp.SelectListener;
+
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
