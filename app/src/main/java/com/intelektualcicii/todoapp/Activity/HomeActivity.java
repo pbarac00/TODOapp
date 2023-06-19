@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.intelektualcicii.todoapp.DataAdapter.TaskAdapter;
 import com.intelektualcicii.todoapp.DataHolder.Task;
@@ -45,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         SelectItemListener {
 
+    TabLayout tabLayout;
     Button logOut,testButton;
     FloatingActionButton addTask;
     RecyclerView recyclerView;
@@ -66,6 +68,9 @@ public class HomeActivity extends AppCompatActivity implements
         addTask=findViewById(R.id.add_task_floating_bt);
 
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
+        tabLayout=findViewById(R.id.tabLayout_Home);
+        tabLayout.addTab(tabLayout.newTab().setText("Active"));
+        tabLayout.addTab(tabLayout.newTab().setText("Finished"));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         isSortByPriorityClicked =false;
         isSortByAzClicked=false;
@@ -88,28 +93,38 @@ public class HomeActivity extends AppCompatActivity implements
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int selectedTabPosition = tab.getPosition();
 
+                // Provjerite koji je tab selektiran
+                if (selectedTabPosition == 0) {
+                    // Izvršavanje koda za Tab 1
+                    // Primjer: Prikazivanje sadržaja za Tab 1
+                    setDataInRecyclerView();
+
+                } else if (selectedTabPosition == 1) {
+                    // Izvršavanje koda za Tab 2
+                    // Primjer: Prikazivanje sadržaja za Tab 2
+                    displayFinishedInRecyclerView();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
 
         setDataInRecyclerView();
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                Toast.makeText(HomeActivity.this, "clicked", Toast.LENGTH_SHORT).show();
 
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-               // Toast.makeText(HomeActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-               // Toast.makeText(HomeActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
         navMenu.setOnClickListener(new View.OnClickListener() {
@@ -188,8 +203,28 @@ public class HomeActivity extends AppCompatActivity implements
             }
             }
 
-        if (notFinishedTasks.size()>0){
+        if (notFinishedTasks.size()>=0){
             taskAdapter = new TaskAdapter(notFinishedTasks,HomeActivity.this::onItemClick);
+            recyclerView.setAdapter(taskAdapter);
+        }
+    }
+
+    private void displayFinishedInRecyclerView()
+    {
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        List<Task> finishedTasks = new ArrayList<>();
+        //izbacit taskove kojima je isFinished YES
+        //unfinishedTasks
+
+
+        for (Task task : tasks) {
+            if (task.isFinished==true){
+                finishedTasks.add(task);
+            }
+        }
+
+        if (finishedTasks.size()>=0){
+            taskAdapter = new TaskAdapter(finishedTasks,HomeActivity.this::onItemClick);
             recyclerView.setAdapter(taskAdapter);
         }
 

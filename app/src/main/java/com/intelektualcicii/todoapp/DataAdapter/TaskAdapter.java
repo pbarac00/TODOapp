@@ -49,11 +49,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
         if (tasks.get(holder.getAdapterPosition()).priority==1)
         {
-            holder.priority.setImageResource(R.drawable.med_priority);
+            holder.priority.setImageResource(R.drawable.med_priority_yellow);
         }
         else if (tasks.get(holder.getAdapterPosition()).priority==2)
         {
-            holder.priority.setImageResource(R.drawable.high_priority);
+            holder.priority.setImageResource(R.drawable.high_priority_red);
         }
 
         //provjerava da li je dueDate postavljen ili mu je vrijednost ""

@@ -54,6 +54,8 @@ public class TaskDetailActivity extends AppCompatActivity {
 
 
 
+        //ubacit logiku za updejt
+
 
 
     }
