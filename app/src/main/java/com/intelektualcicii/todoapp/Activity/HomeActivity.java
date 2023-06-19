@@ -314,5 +314,14 @@ public class HomeActivity extends AppCompatActivity implements
     public void onItemClick(int position) {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         Toast.makeText(this, tasks.get(position).taskName, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
+        intent.putExtra("taskName", tasks.get(position).taskName);
+        intent.putExtra("taskDueDate", tasks.get(position).dueDate);
+        intent.putExtra("taskId", tasks.get(position).taskId);
+        intent.putExtra("isTaskFinished", tasks.get(position).isFinished);
+        intent.putExtra("taskPriority", tasks.get(position).priority);
+        intent.putExtra("taskStartedDate", tasks.get(position).startedDate);
+        startActivity(intent);
     }
 }

@@ -200,7 +200,7 @@
 
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/siwtch_doneOnOff_task_detail"
+        android:id="@+id/switch_doneOnOff_task_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
