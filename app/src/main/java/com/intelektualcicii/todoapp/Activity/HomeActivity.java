@@ -59,9 +59,7 @@ public class HomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_home);
 
         addTask=findViewById(R.id.add_task_floating_bt);
-        sortPriority=findViewById(R.id.iv_priortity_home);
-        sortAZ=findViewById(R.id.iv_sort_az_home);
-        sortDate=findViewById(R.id.iv_sortByDate_home);
+
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         isSortByPriorityClicked =false;
@@ -108,46 +106,46 @@ public class HomeActivity extends AppCompatActivity implements
                 isAddTodoOpen=true;
             }
         });
-
-        sortPriority.setOnClickListener( v -> {
-            if (isSortByPriorityClicked)
-            {
-                isSortByPriorityClicked =false;
-                sortPriority.setImageResource(R.drawable.priority);
-                setDataInRecyclerView();
-            }
-            else{
-                isSortByPriorityClicked =true;
-                sortPriority.setImageResource(R.drawable.priority_blue);
-                sortDataInRvByPriority();
-            }
-        });
-        sortDate.setOnClickListener(v -> {
-            if (isSortByDateClicked)
-            {
-                isSortByDateClicked=false;
-                sortDate.setImageResource(R.drawable.deadline);
-                setDataInRecyclerView();
-            }
-            else{
-                isSortByDateClicked=true;
-                sortDate.setImageResource(R.drawable.deadline_blue);
-                sortDataInRvByDate();
-            }
-        });
-        sortAZ.setOnClickListener(v -> {
-            if (isSortByAzClicked)
-            {
-                isSortByAzClicked=false;
-                sortAZ.setImageResource(R.drawable.sort_az);
-                setDataInRecyclerView();
-            }
-            else{
-                isSortByAzClicked=true;
-                sortAZ.setImageResource(R.drawable.sort_az_blue);
-                sortDataInRvByName();
-            }
-        });
+//
+//        sortPriority.setOnClickListener( v -> {
+//            if (isSortByPriorityClicked)
+//            {
+//                isSortByPriorityClicked =false;
+//                sortPriority.setImageResource(R.drawable.priority);
+//                setDataInRecyclerView();
+//            }
+//            else{
+//                isSortByPriorityClicked =true;
+//                sortPriority.setImageResource(R.drawable.priority_blue);
+//                sortDataInRvByPriority();
+//            }
+//        });
+//        sortDate.setOnClickListener(v -> {
+//            if (isSortByDateClicked)
+//            {
+//                isSortByDateClicked=false;
+//                sortDate.setImageResource(R.drawable.deadline);
+//                setDataInRecyclerView();
+//            }
+//            else{
+//                isSortByDateClicked=true;
+//                sortDate.setImageResource(R.drawable.deadline_blue);
+//                sortDataInRvByDate();
+//            }
+//        });
+//        sortAZ.setOnClickListener(v -> {
+//            if (isSortByAzClicked)
+//            {
+//                isSortByAzClicked=false;
+//                sortAZ.setImageResource(R.drawable.sort_az);
+//                setDataInRecyclerView();
+//            }
+//            else{
+//                isSortByAzClicked=true;
+//                sortAZ.setImageResource(R.drawable.sort_az_blue);
+//                sortDataInRvByName();
+//            }
+//        });
 
 
         
