@@ -164,9 +164,9 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void setDefaultPriorityIcons(){
-        lowPriority.setImageResource(R.drawable.low_priority);
-        medPriority.setImageResource(R.drawable.med_priority);
-        highPriority.setImageResource(R.drawable.high_priority);
+        lowPriority.setImageResource(R.drawable.low_priority_green);
+        medPriority.setImageResource(R.drawable.med_priority_yellow);
+        highPriority.setImageResource(R.drawable.high_priority_red);
     }
 
 

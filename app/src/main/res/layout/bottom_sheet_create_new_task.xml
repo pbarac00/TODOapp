@@ -61,14 +61,14 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:src="@drawable/low_priority"></ImageView>
+            android:src="@drawable/low_priority_green"></ImageView>
 
         <ImageView
             android:id="@+id/iv_medPriority"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:src="@drawable/med_priority"
+            android:src="@drawable/med_priority_yellow"
             android:layout_margin="15dp"></ImageView>
 
         <ImageView
@@ -76,7 +76,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:src="@drawable/high_priority"
+            android:src="@drawable/high_priority_red"
             android:layout_margin="15dp"></ImageView>
     </LinearLayout>
 
@@ -102,7 +102,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/schedule"
+        android:src="@drawable/schedule_grey"
         android:layout_margin="15dp"></ImageView>
 
     </LinearLayout>

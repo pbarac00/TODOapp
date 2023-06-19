@@ -47,7 +47,10 @@ public class TaskDetailActivity extends AppCompatActivity {
         Task task = intent.getParcelableExtra("task");
 
         et_taskText_task_detail.setText(task.taskName);
-
+        //implementirat switch_doneOnOff_task_detail
+        //implementirat prioritet
+        tv_dueDate_task_detail.setText(task.dueDate);
+        tv_createdDate_task_detail.setText(task.startedDate);
 
 
 
