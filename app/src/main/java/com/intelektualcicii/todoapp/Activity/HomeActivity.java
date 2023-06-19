@@ -315,12 +315,8 @@ public class HomeActivity extends AppCompatActivity implements
         //ovo je kriva logika prominit kasnije
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
-        intent.putExtra("taskName", tasks.get(position).taskName);
-        intent.putExtra("taskDueDate", tasks.get(position).dueDate);
-        intent.putExtra("taskId", tasks.get(position).taskId);
-        intent.putExtra("isTaskFinished", tasks.get(position).isFinished);
-        intent.putExtra("taskPriority", tasks.get(position).priority);
-        intent.putExtra("taskStartedDate", tasks.get(position).startedDate);
+        intent.putExtra("task", tasks.get(position));
+
         startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.intelektualcicii.todoapp.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.intelektualcicii.todoapp.DataHolder.Task;
 import com.intelektualcicii.todoapp.R;
 
 import android.annotation.SuppressLint;
@@ -42,8 +43,10 @@ public class TaskDetailActivity extends AppCompatActivity {
         bt_updateTask_task_detail=findViewById(R.id.bt_updateTask_task_detail);
         bt_deleteTask_task_detail=findViewById(R.id.bt_deleteTask_task_detail);
 
+        Intent intent= getIntent();
+        Task task = intent.getParcelableExtra("task");
 
-        et_taskText_task_detail.setText(getIntent().getParcelableExtra("taskName"));
+        et_taskText_task_detail.setText(task.taskName);
 
 
 

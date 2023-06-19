@@ -45,6 +45,12 @@ public class Task implements Parcelable {
         this.startedDate=startedDate;
     }
 
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+
+
     //From here to end of class is the implementation of Parcelable methods,
     // all of them are automatically generated when implementing interface
     protected Task(Parcel in) {
