@@ -194,6 +194,13 @@ public class HomeActivity extends AppCompatActivity implements
     // List activeTasks is sent to adapter, and active tasks are displayed to screen.
     private void setDataInRecyclerView()
     {
+
+            taskAdapter = new TaskAdapter(getActiveTask(),HomeActivity.this::onItemClick);
+            recyclerView.setAdapter(taskAdapter);
+
+    }
+
+    List<Task> getActiveTask(){
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> activeTasks = new ArrayList<>();
 
@@ -203,19 +210,10 @@ public class HomeActivity extends AppCompatActivity implements
                 activeTasks.add(task);
             }
         }
-
-        if (activeTasks.size()>=0){
-            taskAdapter = new TaskAdapter(activeTasks,HomeActivity.this::onItemClick);
-            recyclerView.setAdapter(taskAdapter);
-        }
+        return activeTasks;
     }
 
-
-    // Method gets all tasks from database, then it filters it by checking value of isFinished.
-    // All objects that have value of isFinished==true are added to another list finishedTasks
-    // List finishedTasks is sent to adapter, and finished tasks are displayed to screen
-    private void setFinishedInRecyclerView()
-    {
+    List<Task> getFinishedTask() {
 
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> finishedTasks = new ArrayList<>();
@@ -225,13 +223,20 @@ public class HomeActivity extends AppCompatActivity implements
                 finishedTasks.add(task);
             }
         }
+        return finishedTasks;
+    }
 
-        if (finishedTasks.size()>=0){
+
+    // Method gets all tasks from database, then it filters it by checking value of isFinished.
+    // All objects that have value of isFinished==true are added to another list finishedTasks
+    // List finishedTasks is sent to adapter, and finished tasks are displayed to screen
+    private void setFinishedInRecyclerView()
+    {
             // Task adapter is also initialized with reference to the method 'onItemClick'
             // in the 'HomeActivity' class. That is needed to have listener on items in RV.
-            taskAdapter = new TaskAdapter(finishedTasks,HomeActivity.this::onItemClick);
+            taskAdapter = new TaskAdapter(getFinishedTask(),HomeActivity.this::onItemClick);
             recyclerView.setAdapter(taskAdapter);
-        }
+
 
     }
 
@@ -358,6 +363,9 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(int position) {
         //ovo je kriva logika prominit kasnije
+
+
+
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
         intent.putExtra("task", tasks.get(position));
