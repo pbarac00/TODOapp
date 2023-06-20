@@ -48,6 +48,7 @@ public class HomeActivity extends AppCompatActivity implements
         SelectItemListener {
 
     public int selectedTabPosition;
+    public int currentllySelectedInBottomMenu;
     TabLayout tabLayout;
     Button logOut,testButton;
     FloatingActionButton addTask;
@@ -78,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements
         isSortByDateClicked=false;
         isAddTodoOpen=false;
         bottom_navigation=findViewById(R.id.bottom_navigation);
+        currentllySelectedInBottomMenu=0;
 
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
@@ -102,9 +104,11 @@ public class HomeActivity extends AppCompatActivity implements
 
                 if (selectedTabPosition == 0) {
                     setActiveInRecyclerView();
+                    doSortIfIsSelected();
 
                 } else if (selectedTabPosition == 1) {
                     setFinishedInRecyclerView();
+                    doSortIfIsSelected();
                 }
             }
 
@@ -151,15 +155,19 @@ public class HomeActivity extends AppCompatActivity implements
                 switch (item.getItemId()) {
                     case R.id.sortByName:
                         sortDataInRvByName();
+                        currentllySelectedInBottomMenu = R.id.sortByName;
                         return true;
                     case R.id.sortByPriority:
                         sortDataInRvByPriority();
+                        currentllySelectedInBottomMenu= R.id.sortByPriority;
                         return true;
                     case R.id.sortByDueDate:
                         sortDataInRvByDueDate();
+                        currentllySelectedInBottomMenu=R.id.sortByDueDate;
                         return true;
                     case R.id.sortByCreatedDate:
                         sortDataInRvByCreatedDate();
+                        currentllySelectedInBottomMenu= R.id.sortByCreatedDate;
                         return true;
                 }
                 return false;
@@ -248,6 +256,22 @@ public class HomeActivity extends AppCompatActivity implements
         recyclerView.setAdapter(taskAdapter);
     }
 
+    private void doSortIfIsSelected(){
+        switch (currentllySelectedInBottomMenu) {
+            case R.id.sortByName:
+                sortDataInRvByName();
+                break;
+            case R.id.sortByPriority:
+                sortDataInRvByPriority();
+                break;
+            case R.id.sortByDueDate:
+                sortDataInRvByDueDate();
+                break;
+            case R.id.sortByCreatedDate:
+                sortDataInRvByCreatedDate();
+                break;
+        }
+    }
 
     private void sortDataInRvByCreatedDate()
     {
