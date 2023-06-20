@@ -99,7 +99,8 @@ public class TaskDetailActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             task.taskName = taskText;
-                            task.setDueDate(dueDate);
+                            if (isDueDateSet)  task.setDueDate(dueDate);
+
                             db.taskDAO().updateTask(task);
 
                             handler.post(new Runnable() {
