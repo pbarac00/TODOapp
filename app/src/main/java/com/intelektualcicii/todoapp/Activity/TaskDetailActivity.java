@@ -34,7 +34,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     EditText et_taskText_task_detail;
     SwitchMaterial switch_doneOnOff_task_detail;
     ImageView iv_priorityLow_task_detail,iv_priorityMed_task_detail,
-            iv_priorityHigh_task_detail,iv_editDueDate_task_detail;
+            iv_priorityHigh_task_detail,iv_editDueDate_task_detail,iv_back_task_detail;
     TextView tv_dueDate_task_detail,tv_createdDate_task_detail;
     Button bt_updateTask_task_detail, bt_deleteTask_task_detail;
     TaskDatabase db;
@@ -65,14 +65,19 @@ public class TaskDetailActivity extends AppCompatActivity {
         // Applies effect like crossed out text, and switch on for finished tasks.
         applyInitialEffectsOnUI(task);
 
+        // Adds listener's on every widget item in this activity
+        // and following code what to do when widget is clicked
+        addListenersOnWidgets(task);
 
 
-        //botuni update i delete onCLick....
+
+    }
+
+    private void addListenersOnWidgets(Task task) {
+        // logic behind click on update button
         bt_updateTask_task_detail.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                //ubacit logiku za updejt
                 String taskText=et_taskText_task_detail.getText().toString();
                 if(TextUtils.isEmpty(taskText) ) {
                     Toast.makeText(TaskDetailActivity.this, "Please enter task text", Toast.LENGTH_LONG).show();
@@ -100,12 +105,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         });
 
 
+        // logic behind click on delete button
         bt_deleteTask_task_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog dialog = new AlertDialog.Builder(TaskDetailActivity.this)
                         .setTitle("Delete Note")
-                        .setMessage("Do you wnat to delete note?")
+                        .setMessage("Are you sure you want to delete note?")
                         .setPositiveButton("OK", null)
                         .setNegativeButton("Cancel", null)
                         .show();
@@ -125,6 +131,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                                         Intent intent = new Intent(TaskDetailActivity.this, HomeActivity.class);
                                         Toast.makeText(getApplicationContext(), "Note is deleted", Toast.LENGTH_LONG).show();
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                             }
@@ -134,8 +141,31 @@ public class TaskDetailActivity extends AppCompatActivity {
             }
         });
 
-    }
+        iv_back_task_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog dialog = new AlertDialog.Builder(TaskDetailActivity.this)
+                        .setTitle("Go back")
+                        .setMessage("Are you sure you want to go back? All unsaved progress will be lost")
+                        .setPositiveButton("OK", null)
+                        .setNegativeButton("Cancel", null)
+                        .show();
 
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(TaskDetailActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+
+
+        });
+
+    }
 
 
     private void initializeWidgets(){
@@ -146,6 +176,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         iv_priorityMed_task_detail=findViewById(R.id.iv_priorityMed_task_detail);
         iv_priorityHigh_task_detail=findViewById(R.id.iv_priorityHigh_task_detail);
 
+        iv_back_task_detail=findViewById(R.id.iv_back_task_detail);
         iv_editDueDate_task_detail=findViewById(R.id.iv_editDueDate_task_detail);
         tv_dueDate_task_detail=findViewById(R.id.tv_dueDate_task_detail);
         tv_createdDate_task_detail=findViewById(R.id.tv_createdDate_task_detail);
