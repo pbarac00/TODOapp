@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -55,8 +56,7 @@ public class HomeActivity extends AppCompatActivity implements
     TaskDatabase taskDatabase;
     ImageView sortPriority,sortAZ,sortDate,navMenu;
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
-
-
+    BottomNavigationView bottom_navigation;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements
         isSortByAzClicked=false;
         isSortByDateClicked=false;
         isAddTodoOpen=false;
+        bottom_navigation=findViewById(R.id.bottom_navigation);
 
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
@@ -140,6 +141,32 @@ public class HomeActivity extends AppCompatActivity implements
                 isAddTodoOpen=true;
             }
         });
+
+        //this line picks dummy item...
+        bottom_navigation.setSelectedItemId(R.id.placeholder);
+        
+        bottom_navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.sortByName:
+                        Toast.makeText(HomeActivity.this, "sortiraj po nazivu", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.sortByPriority:
+                        Toast.makeText(HomeActivity.this, "sortiraj po prior", Toast.LENGTH_SHORT).show();
+
+                        return true;
+                    case R.id.sortByDueDate:
+                        Toast.makeText(HomeActivity.this, "sortiraj po due da", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.sortByCreatedDate:
+                        Toast.makeText(HomeActivity.this, "sortiraj po created", Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+                return false;
+            }
+        });
+
 //
 //        sortPriority.setOnClickListener( v -> {
 //            if (isSortByPriorityClicked)

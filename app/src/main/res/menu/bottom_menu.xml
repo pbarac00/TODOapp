@@ -16,11 +16,12 @@
 
         <item android:id="@+id/placeholder"
             android:title=""
+
             >
         </item>
 
 
-        <item android:id="@+id/sortByStartedDate"
+        <item android:id="@+id/sortByDueDate"
             android:title="Due date"
             android:icon="@drawable/deadline">
         </item>
