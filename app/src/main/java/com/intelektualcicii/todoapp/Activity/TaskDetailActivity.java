@@ -144,23 +144,9 @@ public class TaskDetailActivity extends AppCompatActivity {
         iv_back_task_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(TaskDetailActivity.this)
-                        .setTitle("Go back")
-                        .setMessage("Are you sure you want to go back? All unsaved progress will be lost")
-                        .setPositiveButton("OK", null)
-                        .setNegativeButton("Cancel", null)
-                        .show();
-
-                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positiveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(TaskDetailActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                alertDialogOnBackPressed();
             }
+
 
 
         });
@@ -212,5 +198,31 @@ public class TaskDetailActivity extends AppCompatActivity {
             switch_doneOnOff_task_detail.setOnCheckedChangeListener (null);
             switch_doneOnOff_task_detail.setChecked(true);
         }
+    }
+
+
+    public void alertDialogOnBackPressed(){
+        AlertDialog dialog = new AlertDialog.Builder(TaskDetailActivity.this)
+                .setTitle("Go back")
+                .setMessage("Are you sure you want to go back?\nAll unsaved changes will be lost")
+                .setPositiveButton("OK", null)
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TaskDetailActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        alertDialogOnBackPressed();
     }
 }
