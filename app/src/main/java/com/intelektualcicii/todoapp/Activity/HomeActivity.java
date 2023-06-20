@@ -50,12 +50,11 @@ public class HomeActivity extends AppCompatActivity implements
     public int selectedTabPosition;
     public int currentllySelectedInBottomMenu;
     TabLayout tabLayout;
-    Button logOut,testButton;
     FloatingActionButton addTask;
     RecyclerView recyclerView;
     TaskAdapter taskAdapter;
     TaskDatabase taskDatabase;
-    ImageView sortPriority,sortAZ,sortDate,navMenu;
+    ImageView navMenu;
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
     BottomNavigationView bottom_navigation;
     DrawerLayout drawerLayout;
@@ -111,7 +110,6 @@ public class HomeActivity extends AppCompatActivity implements
                     doSortIfIsSelected();
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
@@ -378,25 +376,81 @@ private void sortDataInRvByPriority()
         switch(item.getItemId()){
 
             case R.id.delete_finished:
-                Toast.makeText(this, "need to implement delete finished", Toast.LENGTH_SHORT).show();
+                deleteAllFinishedFromDb(taskDatabase);
                 break;
 
             case R.id.delete_all_task:
-                Toast.makeText(this, "need to implement delete all", Toast.LENGTH_SHORT).show();
+                deleteAllFromDb();
                 break;
 
             case R.id.log_out:
                 logOut();
                 break;
 
-            case R.id.delete_account:
-                Toast.makeText(this, "need to implement delete account", Toast.LENGTH_SHORT).show();
-                break;
-
         }
         //zatvara menu logOut
         drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
+    }
+
+
+    private void deleteAllFromDb(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to delete all TO-DO?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                List<Task> tasks = taskDatabase.taskDAO().getAll();
+
+                for (Task task : tasks)
+                    {
+                        taskDatabase.taskDAO().delete(task);
+                    }
+
+                Toast.makeText(HomeActivity.this, "All finished deleted", Toast.LENGTH_SHORT).show();
+                setFinishedInRecyclerView();
+                setActiveInRecyclerView();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+
+    }
+
+    private void deleteAllFinishedFromDb(TaskDatabase taskDatabase) {
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to delete all finished?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                List<Task> tasks = taskDatabase.taskDAO().getAll();
+
+                for (Task task : tasks) {
+                    if (task.isFinished==true){
+                        taskDatabase.taskDAO().delete(task);
+                    }
+                }
+                Toast.makeText(HomeActivity.this, "All finished deleted", Toast.LENGTH_SHORT).show();
+                setFinishedInRecyclerView();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
     }
 
     @Override
