@@ -50,10 +50,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         if (tasks.get(holder.getAdapterPosition()).priority==1)
         {
             holder.priority.setImageResource(R.drawable.med_priority_yellow);
+            holder.rv_background.setBackgroundResource(R.drawable.priority_medium_backround_rv);
         }
         else if (tasks.get(holder.getAdapterPosition()).priority==2)
         {
             holder.priority.setImageResource(R.drawable.high_priority_red);
+            holder.rv_background.setBackgroundResource(R.drawable.priority_high_background);
         }
 
         if (tasks.get(holder.getAdapterPosition()).isFinished==true)

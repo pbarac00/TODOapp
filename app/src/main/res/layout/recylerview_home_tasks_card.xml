@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@drawable/round_back_light_grey20"
+    android:id="@+id/rv_background"
+    android:background="@drawable/priority_low_backround_rv"
     android:orientation="horizontal">
 
 

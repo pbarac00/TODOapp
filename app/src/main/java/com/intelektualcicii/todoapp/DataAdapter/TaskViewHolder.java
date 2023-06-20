@@ -3,6 +3,7 @@ package com.intelektualcicii.todoapp.DataAdapter;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
@@ -18,10 +19,12 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     ImageView priority;
     ImageView notDoneCircle;
     SelectItemListener selectItemListener;
+    LinearLayout rv_background;
 
     public TaskViewHolder(@NonNull View itemView, SelectItemListener selectItemListener) {
         super(itemView);
 
+        this.rv_background=itemView.findViewById(R.id.rv_background);
         this.taskText=itemView.findViewById(R.id.taskText_rv_task);
         this.priority=itemView.findViewById(R.id.priority_rv_task);
         this.dueDate=itemView.findViewById(R.id.dueDate_rv_task);

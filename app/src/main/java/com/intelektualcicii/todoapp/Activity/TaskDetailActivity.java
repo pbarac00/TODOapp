@@ -167,6 +167,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_low_backround_rv);
                 task.priority=0;
                 Toast.makeText(getApplicationContext(), "Priority: LOW", Toast.LENGTH_SHORT).show();
             }
@@ -177,6 +178,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_medium_backround_rv);
                 task.priority=1;
                 Toast.makeText(getApplicationContext(), "Priority: MEDIUM", Toast.LENGTH_SHORT).show();
             }
@@ -187,6 +189,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setDefaultPriorityIcons();
                 iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_high_background);
                 task.priority=2;
                 Toast.makeText(getApplicationContext(), "Priority: HIGH", Toast.LENGTH_SHORT).show();
             }
@@ -255,12 +258,15 @@ public class TaskDetailActivity extends AppCompatActivity {
         {
             case 0:
                 iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_low_backround_rv);
                 break;
             case 1:
                 iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_medium_backround_rv);
                 break;
             case 2:
                 iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+                et_taskText_task_detail.setBackgroundResource(R.drawable.priority_high_background);
                 break;
         }
 
