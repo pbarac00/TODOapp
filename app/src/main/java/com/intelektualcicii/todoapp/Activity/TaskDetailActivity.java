@@ -72,21 +72,20 @@ public class TaskDetailActivity extends AppCompatActivity {
         tv_dueDate_task_detail.setText(task.dueDate);
         tv_createdDate_task_detail.setText(task.startedDate);
 
-        //not working dont know why
-//        Toast.makeText(this, task.priority, Toast.LENGTH_SHORT).show();
-//
-//        switch (task.priority)
-//        {
-//            case 0:
-//                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
-//                break;
-//            case 1:
-//                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
-//                break;
-//            case 2:
-//                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
-//                break;
-//        }
+
+
+        switch (task.priority)
+        {
+            case 0:
+                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+                break;
+            case 1:
+                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+                break;
+            case 2:
+                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+                break;
+        }
 
 
         if (task.isFinished==true)
