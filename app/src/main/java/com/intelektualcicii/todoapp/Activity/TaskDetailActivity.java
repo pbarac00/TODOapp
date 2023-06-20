@@ -11,6 +11,7 @@ import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -19,11 +20,14 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,6 +42,10 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView tv_dueDate_task_detail,tv_createdDate_task_detail;
     Button bt_updateTask_task_detail, bt_deleteTask_task_detail;
     TaskDatabase db;
+    Boolean isDueDateSet;
+    Calendar calendar;
+    int currYear,currMonth,currDay;
+    String dueDate;
 
 
 
@@ -50,6 +58,9 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         // This function is used to initialize the widgets (views) used in this activity.
         initializeWidgets();
+
+        //This function is used to initialize variables.
+        initializeVariables();
 
         //This block of code initialize db instance.
         db= Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "task").
@@ -87,7 +98,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             task.taskName = taskText;
-
+                            task.setDueDate(dueDate);
                             db.taskDAO().updateTask(task);
 
                             handler.post(new Runnable() {
@@ -179,6 +190,12 @@ public class TaskDetailActivity extends AppCompatActivity {
             }
         });
 
+        iv_editDueDate_task_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDueDateDialog();
+            }
+        });
     }
 
 
@@ -196,6 +213,16 @@ public class TaskDetailActivity extends AppCompatActivity {
         tv_createdDate_task_detail=findViewById(R.id.tv_createdDate_task_detail);
         bt_updateTask_task_detail=findViewById(R.id.bt_updateTask_task_detail);
         bt_deleteTask_task_detail=findViewById(R.id.bt_deleteTask_task_detail);
+    }
+
+    private void initializeVariables()
+    {
+        isDueDateSet=false;
+        dueDate="";
+        calendar = Calendar.getInstance();
+        currYear=calendar.get((calendar.YEAR));
+        currMonth=calendar.get((calendar.MONTH));
+        currDay=calendar.get((calendar.DAY_OF_MONTH));
     }
 
     private void setTaskValuesInWidgets(Task task) {
@@ -253,6 +280,39 @@ public class TaskDetailActivity extends AppCompatActivity {
         iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_green);
         iv_priorityMed_task_detail.setImageResource(R.drawable.med_priority_yellow);
         iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_red);
+    }
+
+    private void setDueDateDialog() {
+        if (isDueDateSet)
+        {
+            Toast.makeText(getApplicationContext(), "Due date already set", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            DatePickerDialog datePickerDialog = new DatePickerDialog(TaskDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Calendar calendar=Calendar.getInstance();
+                    calendar.set(Calendar.YEAR,year);
+                    calendar.set(Calendar.MONTH,month);
+                    calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                    dueDate= DateFormat.getDateInstance().format(calendar.getTime());
+
+                   // Toast.makeText(getApplicationContext(),"Due date: "+  dueDate.toString(), Toast.LENGTH_SHORT).show();
+                    if (!dueDate.isEmpty())
+                    {
+                        //if dueDate is picked make this changes
+                        isDueDateSet=true;
+                        iv_editDueDate_task_detail.setImageResource(R.drawable.schedule_dark);
+                        tv_dueDate_task_detail.setText(dueDate);
+                    }
+
+                }
+            }, currYear, currMonth, currDay);
+            datePickerDialog.show();
+        }
+
+
+
     }
 
     @Override
