@@ -144,72 +144,28 @@ public class HomeActivity extends AppCompatActivity implements
 
         //this line picks dummy item...
         bottom_navigation.setSelectedItemId(R.id.placeholder);
-        
+
         bottom_navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.sortByName:
-                        Toast.makeText(HomeActivity.this, "sortiraj po nazivu", Toast.LENGTH_SHORT).show();
+                        sortDataInRvByName();
                         return true;
                     case R.id.sortByPriority:
-                        Toast.makeText(HomeActivity.this, "sortiraj po prior", Toast.LENGTH_SHORT).show();
-
+                        sortDataInRvByPriority();
                         return true;
                     case R.id.sortByDueDate:
-                        Toast.makeText(HomeActivity.this, "sortiraj po due da", Toast.LENGTH_SHORT).show();
+                        sortDataInRvByDueDate();
                         return true;
                     case R.id.sortByCreatedDate:
-                        Toast.makeText(HomeActivity.this, "sortiraj po created", Toast.LENGTH_SHORT).show();
+                        sortDataInRvByCreatedDate();
                         return true;
                 }
                 return false;
             }
         });
 
-//
-//        sortPriority.setOnClickListener( v -> {
-//            if (isSortByPriorityClicked)
-//            {
-//                isSortByPriorityClicked =false;
-//                sortPriority.setImageResource(R.drawable.priority);
-//                setDataInRecyclerView();
-//            }
-//            else{
-//                isSortByPriorityClicked =true;
-//                sortPriority.setImageResource(R.drawable.priority_blue);
-//                sortDataInRvByPriority();
-//            }
-//        });
-//        sortDate.setOnClickListener(v -> {
-//            if (isSortByDateClicked)
-//            {
-//                isSortByDateClicked=false;
-//                sortDate.setImageResource(R.drawable.deadline);
-//                setDataInRecyclerView();
-//            }
-//            else{
-//                isSortByDateClicked=true;
-//                sortDate.setImageResource(R.drawable.deadline_blue);
-//                sortDataInRvByDate();
-//            }
-//        });
-//        sortAZ.setOnClickListener(v -> {
-//            if (isSortByAzClicked)
-//            {
-//                isSortByAzClicked=false;
-//                sortAZ.setImageResource(R.drawable.sort_az);
-//                setDataInRecyclerView();
-//            }
-//            else{
-//                isSortByAzClicked=true;
-//                sortAZ.setImageResource(R.drawable.sort_az_blue);
-//                sortDataInRvByName();
-//            }
-//        });
-
-
-        
     }
 
     // Method gets all tasks from database, then it filters it by checking value of isFinished.
@@ -217,16 +173,14 @@ public class HomeActivity extends AppCompatActivity implements
     // List activeTasks is sent to adapter, and active tasks are displayed to screen.
     private void setActiveInRecyclerView()
     {
-
             taskAdapter = new TaskAdapter(getActiveTask(),HomeActivity.this::onItemClick);
             recyclerView.setAdapter(taskAdapter);
-
     }
 
     List<Task> getActiveTask(){
+
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> activeTasks = new ArrayList<>();
-
 
         for (Task task : tasks) {
             if (task.isFinished==false){
@@ -263,50 +217,88 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-//    private void sortDataInRvByDate()
-//    {
-//        List<Task> tasks = taskDatabase.taskDAO().getAll();
-//        tasks.sort((o1, o2)
-//                -> o2.getDueDate().compareTo(
-//                o1.getDueDate()));
-//        taskAdapter = new TaskAdapter(tasks);
-//        recyclerView.setAdapter(taskAdapter);
-//
-//    }
-//
-//    private void sortDataInRvByPriority()
-//    {
-//        List<Task> tasks = taskDatabase.taskDAO().getAll();
-//        tasks.sort((o1, o2)
-//                -> o2.priority.compareTo(
-//                o1.priority));
-//        taskAdapter = new TaskAdapter(tasks);
-//        recyclerView.setAdapter(taskAdapter);
-//    }
-//
-//    private void sortDataInRvByName()
-//    {
-//        //ako je sort by priority upaljen, prvo sortira po prioritetu i onda ove sta imaju isti prioritet sortira po imenu
-//        if (isSortByPriorityClicked){
-//            //sortitaj po prioritetu
-//            //oni koji imaju isti prioritet sortitaj po imenu
-//            List<Task> tasks = taskDatabase.taskDAO().getAll();
-//            tasks.sort((o1, o2)
-//                    -> o1.taskName.toLowerCase(Locale.ROOT).compareTo(
-//                    o2.taskName.toLowerCase(Locale.ROOT)));
-//            taskAdapter = new TaskAdapter(tasks);
-//        }
-//        else{
-//            //ako nije upaljen samo ovo
-//            List<Task> tasks = taskDatabase.taskDAO().getAll();
-//            tasks.sort((o1, o2)
-//                    -> o1.taskName.toLowerCase(Locale.ROOT).compareTo(
-//                    o2.taskName.toLowerCase(Locale.ROOT)));
-//            taskAdapter = new TaskAdapter(tasks);
-//        }
-//
-//        recyclerView.setAdapter(taskAdapter);
-//    }
+    private void sortDataInRvByDueDate()
+    {
+        List<Task> tasks= new ArrayList<>();
+        if (selectedTabPosition==0)
+        {
+            tasks=getActiveTask();
+        }
+        else{
+            tasks=getFinishedTask();
+        }
+
+        Comparator<Task> comparator = (o1, o2) -> {
+            String dueDate1 = o1.getDueDate();
+            String dueDate2 = o2.getDueDate();
+
+            // Check if either dueDate is empty
+            if (dueDate1.isEmpty() && !dueDate2.isEmpty()) {
+                return 1; // Move o1 to the end of the list
+            } else if (!dueDate1.isEmpty() && dueDate2.isEmpty()) {
+                return -1; // Move o2 to the end of the list
+            }
+
+            // Compare dueDates for non-empty values
+            return dueDate1.compareTo(dueDate2);
+        };
+
+        tasks.sort(comparator);
+        taskAdapter = new TaskAdapter(tasks, HomeActivity.this::onItemClick);
+        recyclerView.setAdapter(taskAdapter);
+    }
+
+
+    private void sortDataInRvByCreatedDate()
+    {
+        List<Task> tasks= new ArrayList<>();
+        if (selectedTabPosition==0)
+        {
+            tasks=getActiveTask();
+        }
+        else{
+            tasks=getFinishedTask();
+        }
+
+        tasks.sort((o1, o2) -> o1.getStartedDate().compareTo(o2.getStartedDate()));
+        taskAdapter = new TaskAdapter(tasks, HomeActivity.this::onItemClick);
+        recyclerView.setAdapter(taskAdapter);
+
+    }
+
+private void sortDataInRvByPriority()
+{
+    List<Task> tasks= new ArrayList<>();
+    if (selectedTabPosition==0)
+    {
+        tasks=getActiveTask();
+    }
+    else{
+        tasks=getFinishedTask();
+    }
+
+    tasks.sort((o1, o2) -> o2.priority.compareTo(o1.priority));
+    taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
+    recyclerView.setAdapter(taskAdapter);
+}
+
+    private void sortDataInRvByName()
+    {
+
+        List<Task> tasks= new ArrayList<>();
+        if (selectedTabPosition==0)
+        {
+            tasks=getActiveTask();
+        }
+        else{
+            tasks=getFinishedTask();
+        }
+
+            tasks.sort(Comparator.comparing(o -> o.taskName.toLowerCase(Locale.ROOT)));
+            taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
+
+        recyclerView.setAdapter(taskAdapter);
+    }
 
     private void logOut(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
