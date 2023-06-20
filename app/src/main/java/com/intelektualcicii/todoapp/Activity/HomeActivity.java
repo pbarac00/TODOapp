@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements
                 if (selectedTabPosition == 0) {
                     // Izvršavanje koda za Tab 1
                     // Primjer: Prikazivanje sadržaja za Tab 1
-                    setDataInRecyclerView();
+                    setActiveInRecyclerView();
 
                 } else if (selectedTabPosition == 1) {
                     // Izvršavanje koda za Tab 2
@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
 
-        setDataInRecyclerView();
+        setActiveInRecyclerView();
 
 
 
@@ -188,34 +188,37 @@ public class HomeActivity extends AppCompatActivity implements
 
         
     }
-    //preimenovat je u showActiveTasksInRecyclerView
-    private void setDataInRecyclerView()
+
+    // Method gets all tasks from database, then it filters it by checking value of isFinished.
+    // All objects that have value of isFinished==false are added to another list activeTasks
+    // List activeTasks is sent to adapter, and active tasks are displayed to screen.
+    private void setActiveInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
-        List<Task> notFinishedTasks = new ArrayList<>();
-        //izbacit taskove kojima je isFinished YES
-        //unfinishedTasks
+        List<Task> activeTasks = new ArrayList<>();
 
 
         for (Task task : tasks) {
             if (task.isFinished==false){
-                notFinishedTasks.add(task);
+                activeTasks.add(task);
             }
-            }
+        }
 
-        if (notFinishedTasks.size()>=0){
-            taskAdapter = new TaskAdapter(notFinishedTasks,HomeActivity.this::onItemClick);
+        if (activeTasks.size()>=0){
+            taskAdapter = new TaskAdapter(activeTasks,HomeActivity.this::onItemClick);
             recyclerView.setAdapter(taskAdapter);
         }
     }
 
+
+    // Method gets all tasks from database, then it filters it by checking value of isFinished.
+    // All objects that have value of isFinished==true are added to another list finishedTasks
+    // List finishedTasks is sent to adapter, and finished tasks are displayed to screen
     private void setFinishedInRecyclerView()
     {
+
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> finishedTasks = new ArrayList<>();
-        //izbacit taskove kojima je isFinished YES
-        //unfinishedTasks
-
 
         for (Task task : tasks) {
             if (task.isFinished==true){
@@ -224,6 +227,8 @@ public class HomeActivity extends AppCompatActivity implements
         }
 
         if (finishedTasks.size()>=0){
+            // Task adapter is also initialized with reference to the method 'onItemClick'
+            // in the 'HomeActivity' class. That is needed to have listener on items in RV.
             taskAdapter = new TaskAdapter(finishedTasks,HomeActivity.this::onItemClick);
             recyclerView.setAdapter(taskAdapter);
         }
@@ -307,7 +312,7 @@ public class HomeActivity extends AppCompatActivity implements
     public void onDismissBottomSheetCalled(Boolean isCalled) {
         if (isCalled){
             
-            setDataInRecyclerView();
+            setActiveInRecyclerView();
             TabLayout.Tab tab = tabLayout.getTabAt(0);
             tab.select();
         }
