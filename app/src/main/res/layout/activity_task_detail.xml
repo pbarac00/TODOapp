@@ -196,7 +196,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_dueDate_task_detail"
         app:layout_constraintStart_toEndOf="@+id/tv_dueDate_task_detail"
         app:layout_constraintTop_toTopOf="@+id/tv_dueDate_task_detail"
-        app:srcCompat="@drawable/schedule" />
+        app:srcCompat="@drawable/schedule_grey" />
 
 
     <com.google.android.material.switchmaterial.SwitchMaterial

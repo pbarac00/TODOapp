@@ -74,6 +74,19 @@ public class TaskDetailActivity extends AppCompatActivity {
 
 
 
+
+        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
+        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
+//        if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
+//            holder.hardcodedDueDate.setText("Due date: ");
+//            holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
+//
+//        }
+
+
+
+
+
         switch (task.priority)
         {
             case 0:
@@ -91,20 +104,9 @@ public class TaskDetailActivity extends AppCompatActivity {
         if (task.isFinished==true)
         {
             et_taskText_task_detail.setPaintFlags(et_taskText_task_detail.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
+            switch_doneOnOff_task_detail.setOnCheckedChangeListener (null);
+            switch_doneOnOff_task_detail.setChecked(true);
         }
-
-        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
-        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
-//        if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
-//            holder.hardcodedDueDate.setText("Due date: ");
-//            holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
-//
-//        }
-
-
-
-
 
 
         //botuni update i delete onCLick....
@@ -174,7 +176,8 @@ public class TaskDetailActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+    private void displayInitialTaskValues()
+    {}
 }
