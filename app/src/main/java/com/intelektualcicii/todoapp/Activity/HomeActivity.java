@@ -99,15 +99,10 @@ public class HomeActivity extends AppCompatActivity implements
             public void onTabSelected(TabLayout.Tab tab) {
                 selectedTabPosition = tab.getPosition();
 
-                // Provjerite koji je tab selektiran
                 if (selectedTabPosition == 0) {
-                    // Izvršavanje koda za Tab 1
-                    // Primjer: Prikazivanje sadržaja za Tab 1
                     setActiveInRecyclerView();
 
                 } else if (selectedTabPosition == 1) {
-                    // Izvršavanje koda za Tab 2
-                    // Primjer: Prikazivanje sadržaja za Tab 2
                     setFinishedInRecyclerView();
                 }
             }
