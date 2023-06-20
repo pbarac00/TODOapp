@@ -146,9 +146,37 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 alertDialogOnBackPressed();
             }
+        });
 
 
+        iv_priorityLow_task_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+                task.priority=0;
+                Toast.makeText(getApplicationContext(), "Priority: LOW", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        iv_priorityMed_task_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+                task.priority=1;
+                Toast.makeText(getApplicationContext(), "Priority: MEDIUM", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        iv_priorityHigh_task_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultPriorityIcons();
+                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+                task.priority=2;
+                Toast.makeText(getApplicationContext(), "Priority: HIGH", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
@@ -218,7 +246,13 @@ public class TaskDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    private void setDefaultPriorityIcons()
+    {
+        iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_green);
+        iv_priorityMed_task_detail.setImageResource(R.drawable.med_priority_yellow);
+        iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_red);
     }
 
     @Override
