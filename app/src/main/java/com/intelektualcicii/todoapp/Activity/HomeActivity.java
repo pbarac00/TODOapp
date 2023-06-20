@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements
                 if (selectedTabPosition == 0) {
                     // Izvršavanje koda za Tab 1
                     // Primjer: Prikazivanje sadržaja za Tab 1
-                    setActiveInRecyclerView();
+                    setDataInRecyclerView();
 
                 } else if (selectedTabPosition == 1) {
                     // Izvršavanje koda za Tab 2
@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
 
-        setActiveInRecyclerView();
+        setDataInRecyclerView();
 
 
 
@@ -192,7 +192,7 @@ public class HomeActivity extends AppCompatActivity implements
     // Method gets all tasks from database, then it filters it by checking value of isFinished.
     // All objects that have value of isFinished==false are added to another list activeTasks
     // List activeTasks is sent to adapter, and active tasks are displayed to screen.
-    private void setActiveInRecyclerView()
+    private void setDataInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> activeTasks = new ArrayList<>();
@@ -312,7 +312,7 @@ public class HomeActivity extends AppCompatActivity implements
     public void onDismissBottomSheetCalled(Boolean isCalled) {
         if (isCalled){
             
-            setActiveInRecyclerView();
+            setDataInRecyclerView();
             TabLayout.Tab tab = tabLayout.getTabAt(0);
             tab.select();
         }

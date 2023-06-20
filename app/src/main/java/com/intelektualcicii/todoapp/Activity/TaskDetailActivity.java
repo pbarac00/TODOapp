@@ -12,6 +12,7 @@ import com.intelektualcicii.todoapp.R;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,9 +49,11 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         et_taskText_task_detail=findViewById(R.id.et_taskText_task_detail);
         switch_doneOnOff_task_detail=findViewById(R.id.switch_doneOnOff_task_detail);
+
         iv_priorityLow_task_detail=findViewById(R.id.iv_priorityLow_task_detail);
         iv_priorityMed_task_detail=findViewById(R.id.iv_priorityMed_task_detail);
         iv_priorityHigh_task_detail=findViewById(R.id.iv_priorityHigh_task_detail);
+
         iv_editDueDate_task_detail=findViewById(R.id.iv_editDueDate_task_detail);
         tv_dueDate_task_detail=findViewById(R.id.tv_dueDate_task_detail);
         tv_createdDate_task_detail=findViewById(R.id.tv_createdDate_task_detail);
@@ -69,13 +72,44 @@ public class TaskDetailActivity extends AppCompatActivity {
         tv_dueDate_task_detail.setText(task.dueDate);
         tv_createdDate_task_detail.setText(task.startedDate);
 
+        //not working dont know why
+//        Toast.makeText(this, task.priority, Toast.LENGTH_SHORT).show();
+//
+//        switch (task.priority)
+//        {
+//            case 0:
+//                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+//                break;
+//            case 1:
+//                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+//                break;
+//            case 2:
+//                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+//                break;
+//        }
+
+
+        if (task.isFinished==true)
+        {
+            et_taskText_task_detail.setPaintFlags(et_taskText_task_detail.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        }
+
+        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
+        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
+//        if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
+//            holder.hardcodedDueDate.setText("Due date: ");
+//            holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
+//
+//        }
 
 
 
 
 
+
+        //botuni update i delete onCLick....
         bt_updateTask_task_detail.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {

@@ -59,6 +59,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         if (tasks.get(holder.getAdapterPosition()).isFinished==true)
         {
             holder.taskText.setPaintFlags(holder.taskText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.notDoneCircle.setImageResource(R.drawable.done_circle);
         }
 
         //provjerava da li je dueDate postavljen ili mu je vrijednost ""
@@ -66,7 +67,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
             holder.hardcodedDueDate.setText("Due date: ");
             holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
-            holder.notDoneCircle.setImageResource(R.drawable.done_circle);
+
         }
 
         //animation in rv and deleting object from database
