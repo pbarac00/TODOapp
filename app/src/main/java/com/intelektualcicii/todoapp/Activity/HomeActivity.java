@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         SelectItemListener {
 
+    public int selectedTabPosition;
     TabLayout tabLayout;
     Button logOut,testButton;
     FloatingActionButton addTask;
@@ -96,7 +97,7 @@ public class HomeActivity extends AppCompatActivity implements
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int selectedTabPosition = tab.getPosition();
+                selectedTabPosition = tab.getPosition();
 
                 // Provjerite koji je tab selektiran
                 if (selectedTabPosition == 0) {
@@ -362,14 +363,18 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(int position) {
-        //ovo je kriva logika prominit kasnije
+        List<Task> tasks= new ArrayList<>();
+        if (selectedTabPosition==0)
+        {
+            tasks=getActiveTask();
+        }
+        else if (selectedTabPosition==1)
+        {
+            tasks=getFinishedTask();
+        }
 
-
-
-        List<Task> tasks = taskDatabase.taskDAO().getAll();
         Intent intent = new Intent(HomeActivity.this, TaskDetailActivity.class);
         intent.putExtra("task", tasks.get(position));
-
         startActivity(intent);
     }
 }
