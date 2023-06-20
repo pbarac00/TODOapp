@@ -45,6 +45,27 @@ public class Task implements Parcelable {
         this.startedDate=startedDate;
     }
 
+    @NonNull
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public String getStartedDate() {
+        return startedDate;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
     public boolean isFinished() {
         return isFinished;
     }

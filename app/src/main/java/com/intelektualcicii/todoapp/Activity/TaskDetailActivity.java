@@ -47,66 +47,24 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        et_taskText_task_detail=findViewById(R.id.et_taskText_task_detail);
-        switch_doneOnOff_task_detail=findViewById(R.id.switch_doneOnOff_task_detail);
 
-        iv_priorityLow_task_detail=findViewById(R.id.iv_priorityLow_task_detail);
-        iv_priorityMed_task_detail=findViewById(R.id.iv_priorityMed_task_detail);
-        iv_priorityHigh_task_detail=findViewById(R.id.iv_priorityHigh_task_detail);
+        // This function is used to initialize the widgets (views) used in this activity.
+        initializeWidgets();
 
-        iv_editDueDate_task_detail=findViewById(R.id.iv_editDueDate_task_detail);
-        tv_dueDate_task_detail=findViewById(R.id.tv_dueDate_task_detail);
-        tv_createdDate_task_detail=findViewById(R.id.tv_createdDate_task_detail);
-        bt_updateTask_task_detail=findViewById(R.id.bt_updateTask_task_detail);
-        bt_deleteTask_task_detail=findViewById(R.id.bt_deleteTask_task_detail);
-
+        //This block of code initialize db instance.
         db= Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "task").
                 fallbackToDestructiveMigration().build();
 
+        //This block of code gets object task that is passed in this activity trough intent.
         Intent intent= getIntent();
         Task task = intent.getParcelableExtra("task");
 
-        et_taskText_task_detail.setText(task.taskName);
-        //implementirat switch_doneOnOff_task_detail
-        //implementirat prioritet
-        tv_dueDate_task_detail.setText(task.dueDate);
-        tv_createdDate_task_detail.setText(task.startedDate);
+        // Sets values of task in widgets.
+        setTaskValuesInWidgets(task);
 
+        // Applies effect like crossed out text, and switch on for finished tasks.
+        applyInitialEffectsOnUI(task);
 
-
-
-        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
-        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
-//        if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
-//            holder.hardcodedDueDate.setText("Due date: ");
-//            holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
-//
-//        }
-
-
-
-
-
-        switch (task.priority)
-        {
-            case 0:
-                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
-                break;
-            case 1:
-                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
-                break;
-            case 2:
-                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
-                break;
-        }
-
-
-        if (task.isFinished==true)
-        {
-            et_taskText_task_detail.setPaintFlags(et_taskText_task_detail.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            switch_doneOnOff_task_detail.setOnCheckedChangeListener (null);
-            switch_doneOnOff_task_detail.setChecked(true);
-        }
 
 
         //botuni update i delete onCLick....
@@ -130,7 +88,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(TaskDetailActivity.this, taskText, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(TaskDetailActivity.this, "TO-DO updated", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(TaskDetailActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                 }
@@ -178,6 +136,50 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     }
 
-    private void displayInitialTaskValues()
-    {}
+
+
+    private void initializeWidgets(){
+        et_taskText_task_detail=findViewById(R.id.et_taskText_task_detail);
+        switch_doneOnOff_task_detail=findViewById(R.id.switch_doneOnOff_task_detail);
+
+        iv_priorityLow_task_detail=findViewById(R.id.iv_priorityLow_task_detail);
+        iv_priorityMed_task_detail=findViewById(R.id.iv_priorityMed_task_detail);
+        iv_priorityHigh_task_detail=findViewById(R.id.iv_priorityHigh_task_detail);
+
+        iv_editDueDate_task_detail=findViewById(R.id.iv_editDueDate_task_detail);
+        tv_dueDate_task_detail=findViewById(R.id.tv_dueDate_task_detail);
+        tv_createdDate_task_detail=findViewById(R.id.tv_createdDate_task_detail);
+        bt_updateTask_task_detail=findViewById(R.id.bt_updateTask_task_detail);
+        bt_deleteTask_task_detail=findViewById(R.id.bt_deleteTask_task_detail);
+    }
+
+    private void setTaskValuesInWidgets(Task task) {
+        et_taskText_task_detail.setText(task.getTaskName());
+        tv_dueDate_task_detail.setText(task.getDueDate());
+        tv_createdDate_task_detail.setText(task.getStartedDate());
+    }
+
+    private void applyInitialEffectsOnUI(Task task)
+    {
+        switch (task.priority)
+        {
+            case 0:
+                iv_priorityLow_task_detail.setImageResource(R.drawable.low_priority_dark);
+                break;
+            case 1:
+                iv_priorityMed_task_detail.setImageResource(R.drawable.medium_priority_dark);
+                break;
+            case 2:
+                iv_priorityHigh_task_detail.setImageResource(R.drawable.high_priority_dark);
+                break;
+        }
+
+
+        if (task.isFinished==true)
+        {
+            et_taskText_task_detail.setPaintFlags(et_taskText_task_detail.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            switch_doneOnOff_task_detail.setOnCheckedChangeListener (null);
+            switch_doneOnOff_task_detail.setChecked(true);
+        }
+    }
 }
