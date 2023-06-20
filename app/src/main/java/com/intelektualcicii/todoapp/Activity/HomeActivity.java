@@ -188,7 +188,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         
     }
-
+    //preimenovat je u showActiveTasksInRecyclerView
     private void setDataInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
@@ -304,7 +304,10 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onDismissBottomSheetCalled(Boolean isCalled) {
         if (isCalled){
+
             setDataInRecyclerView();
+            TabLayout.Tab tab = tabLayout.getTabAt(0);
+            tab.select();
         }
     }
 

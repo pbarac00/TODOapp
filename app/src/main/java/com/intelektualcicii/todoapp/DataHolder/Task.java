@@ -45,6 +45,14 @@ public class Task implements Parcelable {
         this.startedDate=startedDate;
     }
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }

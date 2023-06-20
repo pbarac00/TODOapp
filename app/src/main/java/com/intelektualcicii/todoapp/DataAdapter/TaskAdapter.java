@@ -56,11 +56,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             holder.priority.setImageResource(R.drawable.high_priority_red);
         }
 
+        if (tasks.get(holder.getAdapterPosition()).isFinished==true)
+        {
+            holder.taskText.setPaintFlags(holder.taskText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
         //provjerava da li je dueDate postavljen ili mu je vrijednost ""
         //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
         if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
             holder.hardcodedDueDate.setText("Due date: ");
             holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);
+            holder.notDoneCircle.setImageResource(R.drawable.done_circle);
         }
 
         //animation in rv and deleting object from database
@@ -74,8 +80,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     public void run() {
                         db= Room.databaseBuilder(v.getContext(), TaskDatabase.class, "task").
                                 fallbackToDestructiveMigration().build();
-                       db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
-                        // prominit da ne brise nego da minja isFinished tj koristit UPDATE
+                      // db.taskDAO().delete(tasks.get(holder.getAdapterPosition()));
+                        Task task = tasks.get(holder.getAdapterPosition());
+                        task.setFinished(true);
+                        db.taskDAO().updateTask(task);
+
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
