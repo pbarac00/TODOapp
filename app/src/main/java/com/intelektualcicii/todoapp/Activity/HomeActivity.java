@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity implements
                 } else if (selectedTabPosition == 1) {
                     // Izvršavanje koda za Tab 2
                     // Primjer: Prikazivanje sadržaja za Tab 2
-                    displayFinishedInRecyclerView();
+                    setFinishedInRecyclerView();
                 }
             }
 
@@ -209,7 +209,7 @@ public class HomeActivity extends AppCompatActivity implements
         }
     }
 
-    private void displayFinishedInRecyclerView()
+    private void setFinishedInRecyclerView()
     {
         List<Task> tasks = taskDatabase.taskDAO().getAll();
         List<Task> finishedTasks = new ArrayList<>();
@@ -301,10 +301,12 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    //function that communicates with bottom sheet dialog(add new task)
+    //when isCalled becomes true it changes to Active tab and refreshes recyclerView
     @Override
     public void onDismissBottomSheetCalled(Boolean isCalled) {
         if (isCalled){
-
+            
             setDataInRecyclerView();
             TabLayout.Tab tab = tabLayout.getTabAt(0);
             tab.select();
