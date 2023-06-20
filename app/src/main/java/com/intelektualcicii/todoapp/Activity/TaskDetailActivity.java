@@ -20,6 +20,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -196,6 +197,22 @@ public class TaskDetailActivity extends AppCompatActivity {
                 setDueDateDialog();
             }
         });
+
+        switch_doneOnOff_task_detail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (task.isFinished){
+                    task.isFinished=false;
+                    et_taskText_task_detail.setPaintFlags(0);
+                }
+                else{
+                    task.isFinished=true;
+                    et_taskText_task_detail.setPaintFlags(et_taskText_task_detail.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                }
+            }
+        });
+
+
     }
 
 
