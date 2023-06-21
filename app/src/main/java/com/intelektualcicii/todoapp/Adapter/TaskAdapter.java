@@ -64,8 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             holder.notDoneCircle.setImageResource(R.drawable.done_circle);
         }
 
-        //provjerava da li je dueDate postavljen ili mu je vrijednost ""
-        //inicijalna vrijednost je "" jer se datumi sortiraju pa mora imat neku vrijednost
+
         if (tasks.get(holder.getAdapterPosition()).dueDate.length()>0){
             holder.hardcodedDueDate.setText("Due date: ");
             holder.dueDate.setText(tasks.get(holder.getAdapterPosition()).dueDate);

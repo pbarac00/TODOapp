@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements
             }
         });
 
-        //this line picks dummy item...
+
         bottom_navigation.setSelectedItemId(R.id.placeholder);
 
         bottom_navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
@@ -170,9 +170,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    // Method gets all tasks from database, then it filters it by checking value of isFinished.
-    // All objects that have value of isFinished==false are added to another list activeTasks
-    // List activeTasks is sent to adapter, and active tasks are displayed to screen.
+
     private void setActiveInRecyclerView()
     {
             taskAdapter = new TaskAdapter(getActiveTask(),HomeActivity.this::onItemClick);
@@ -206,9 +204,7 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
-    // Method gets all tasks from database, then it filters it by checking value of isFinished.
-    // All objects that have value of isFinished==true are added to another list finishedTasks
-    // List finishedTasks is sent to adapter, and finished tasks are displayed to screen
+
     private void setFinishedInRecyclerView()
     {
             // Task adapter is also initialized with reference to the method 'onItemClick'
