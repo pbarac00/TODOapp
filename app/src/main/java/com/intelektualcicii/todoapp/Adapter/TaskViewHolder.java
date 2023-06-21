@@ -1,4 +1,4 @@
-package com.intelektualcicii.todoapp.DataAdapter;
+package com.intelektualcicii.todoapp.Adapter;
 
 import android.view.View;
 import android.widget.ImageView;

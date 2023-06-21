@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.intelektualcicii.todoapp.DataAdapter.TaskAdapter;
+import com.intelektualcicii.todoapp.Adapter.TaskAdapter;
 import com.intelektualcicii.todoapp.Model.Task;
 import com.intelektualcicii.todoapp.Dao.TaskDAO;
 import com.intelektualcicii.todoapp.Database.TaskDatabase;

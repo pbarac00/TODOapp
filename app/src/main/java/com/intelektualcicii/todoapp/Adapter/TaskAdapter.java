@@ -1,4 +1,4 @@
-package com.intelektualcicii.todoapp.DataAdapter;
+package com.intelektualcicii.todoapp.Adapter;
 
 import android.graphics.Paint;
 import android.os.Handler;
