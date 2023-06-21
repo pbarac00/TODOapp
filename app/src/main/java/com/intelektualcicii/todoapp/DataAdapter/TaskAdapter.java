@@ -12,10 +12,10 @@ import androidx.core.os.HandlerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.intelektualcicii.todoapp.DataHolder.Task;
-import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
+import com.intelektualcicii.todoapp.Model.Task;
+import com.intelektualcicii.todoapp.Database.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
-import com.intelektualcicii.todoapp.SelectItemListener;
+import com.intelektualcicii.todoapp.Interface.SelectItemListener;
 
 
 import java.util.List;

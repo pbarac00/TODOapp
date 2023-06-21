@@ -1,4 +1,4 @@
-package com.intelektualcicii.todoapp.DataHolder;
+package com.intelektualcicii.todoapp.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,11 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.sql.Date;
-import java.time.LocalDate;
-
-import java.util.UUID;
 
 @Entity
 public class Task implements Parcelable {

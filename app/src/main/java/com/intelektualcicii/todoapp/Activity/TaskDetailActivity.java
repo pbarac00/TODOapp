@@ -6,8 +6,8 @@ import androidx.core.os.HandlerCompat;
 import androidx.room.Room;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.intelektualcicii.todoapp.DataHolder.Task;
-import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
+import com.intelektualcicii.todoapp.Model.Task;
+import com.intelektualcicii.todoapp.Database.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 
 import android.annotation.SuppressLint;

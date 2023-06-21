@@ -1,10 +1,12 @@
-package com.intelektualcicii.todoapp.DataHolder;
+package com.intelektualcicii.todoapp.Dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.intelektualcicii.todoapp.Model.Task;
 
 import java.util.List;
 

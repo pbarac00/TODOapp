@@ -1,4 +1,4 @@
-package com.intelektualcicii.todoapp.DataHolder;
+package com.intelektualcicii.todoapp.Model;
 
 public class User {
 

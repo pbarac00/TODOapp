@@ -3,8 +3,6 @@ package com.intelektualcicii.todoapp.Dialog;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,18 +21,12 @@ import androidx.core.os.HandlerCompat;
 import androidx.room.Room;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.intelektualcicii.todoapp.DataHolder.Task;
-import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
+import com.intelektualcicii.todoapp.Model.Task;
+import com.intelektualcicii.todoapp.Database.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
 
 
-import java.sql.Date;
 import java.text.DateFormat;
-import java.time.LocalDate;
 
 import java.util.Calendar;
 import java.util.UUID;

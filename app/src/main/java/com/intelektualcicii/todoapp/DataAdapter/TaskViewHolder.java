@@ -1,18 +1,15 @@
 package com.intelektualcicii.todoapp.DataAdapter;
 
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.intelektualcicii.todoapp.DataHolder.TaskDatabase;
 import com.intelektualcicii.todoapp.R;
-import com.intelektualcicii.todoapp.SelectItemListener;
+import com.intelektualcicii.todoapp.Interface.SelectItemListener;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView taskText,dueDate,hardcodedDueDate;
