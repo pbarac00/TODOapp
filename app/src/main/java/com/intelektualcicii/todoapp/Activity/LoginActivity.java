@@ -31,11 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getSupportActionBar().hide();
-
-
         firebaseAuth=FirebaseAuth.getInstance();
 
+        // if user is authenticated move to HomeActivity
+        //this is easily "hacked" on this way, you just need to create new account to bypass
         if (firebaseAuth.getCurrentUser()!=null){
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();

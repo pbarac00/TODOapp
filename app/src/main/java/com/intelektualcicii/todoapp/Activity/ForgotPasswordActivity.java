@@ -19,30 +19,31 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.intelektualcicii.todoapp.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-EditText email_et_RP;
-Button resetPassword;
-TextView tv_logIn;
-private FirebaseAuth firebaseAuth;
-    
+    EditText email_et_RP;
+    Button resetPassword;
+    TextView tv_logIn;
+    private FirebaseAuth firebaseAuth;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password2);
-        
+
         email_et_RP=findViewById(R.id.RP_et_email);
         resetPassword=findViewById(R.id.bt_resetPassword);
         tv_logIn=findViewById(R.id.RP_tv_logIn);
-        
         firebaseAuth= FirebaseAuth.getInstance();
-        
-        
+
+
+
         resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetPassword();
             }
         });
+
 
         tv_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +53,7 @@ private FirebaseAuth firebaseAuth;
             }
         });
     }
-    
+
     private void resetPassword(){
         String email = email_et_RP.getText().toString().trim();
 
@@ -83,6 +84,6 @@ private FirebaseAuth firebaseAuth;
                 }
             }
         });
-        
+
     }
 }

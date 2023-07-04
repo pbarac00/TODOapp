@@ -321,7 +321,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                     calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                     dueDate= DateFormat.getDateInstance().format(calendar.getTime());
 
-                   // Toast.makeText(getApplicationContext(),"Due date: "+  dueDate.toString(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(),"Due date: "+  dueDate.toString(), Toast.LENGTH_SHORT).show();
                     if (!dueDate.isEmpty())
                     {
                         //if dueDate is picked make this changes

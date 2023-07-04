@@ -54,25 +54,26 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        // Inflates the layout file "bottom_sheet_create_new_task.xml" and creates a View object
         View view =inflater.inflate(R.layout.bottom_sheet_create_new_task,container,false);
-        newTODO=view.findViewById(R.id.et_newTODO);
-        lowPriority=view.findViewById(R.id.iv_lowPriority);
-        medPriority=view.findViewById(R.id.iv_medPriority);
-        highPriority=view.findViewById(R.id.iv_highPriority);
-        saveTODO=view.findViewById(R.id.bt_saveNewTODO);
-        setDueDate=view.findViewById(R.id.iv_setDuedate);
-        taskPriority=0;
-        isDueDateSet=false;
-        dueDate="";
-        calendar = Calendar.getInstance();
-        currYear=calendar.get((calendar.YEAR));
-        currMonth=calendar.get((calendar.MONTH));
-        currDay=calendar.get((calendar.DAY_OF_MONTH));
+
+
+        initialitzeViewsAndVariables(view);
+
+
         db= Room.databaseBuilder(getContext(), TaskDatabase.class, "task").
                 fallbackToDestructiveMigration().build();
 
 
+        addOnClickListenners();
 
+
+        return view;
+
+    }
+
+    private void addOnClickListenners() {
         lowPriority.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,48 +117,6 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
                 setDueDateDialog();
             }
         });
-
-        return view;
-
-    }
-
-    public interface CreateNewTaskBottomSheetListener{
-        void onDismissBottomSheetCalled(Boolean isCalled);
-    }
-
-    private void setDueDateDialog() {
-        if (isDueDateSet)
-        {
-            Toast.makeText(getContext(), "Due date already set", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    Calendar calendar=Calendar.getInstance();
-                    calendar.set(Calendar.YEAR,year);
-                    calendar.set(Calendar.MONTH,month);
-                    calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                    dueDate=DateFormat.getDateInstance().format(calendar.getTime());
-
-                    Toast.makeText(getContext(),"Due date: "+  dueDate.toString(), Toast.LENGTH_SHORT).show();
-                    if (!dueDate.isEmpty())
-                    {
-                        isDueDateSet=true;
-                        setDueDate.setImageResource(R.drawable.schedule_dark);
-                    }
-
-                }
-            }, currYear, currMonth, currDay);
-            datePickerDialog.show();
-        }
-
-    }
-
-    private void setDefaultPriorityIcons(){
-        lowPriority.setImageResource(R.drawable.low_priority_green);
-        medPriority.setImageResource(R.drawable.med_priority_yellow);
-        highPriority.setImageResource(R.drawable.high_priority_red);
     }
 
 
@@ -196,6 +155,60 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
+
+    private void setDueDateDialog() {
+        if (isDueDateSet)
+        {
+            Toast.makeText(getContext(), "Due date already set", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Calendar calendar=Calendar.getInstance();
+                    calendar.set(Calendar.YEAR,year);
+                    calendar.set(Calendar.MONTH,month);
+                    calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                    dueDate=DateFormat.getDateInstance().format(calendar.getTime());
+
+                    Toast.makeText(getContext(),"Due date: "+  dueDate.toString(), Toast.LENGTH_SHORT).show();
+                    if (!dueDate.isEmpty())
+                    {
+                        isDueDateSet=true;
+                        setDueDate.setImageResource(R.drawable.schedule_dark);
+                    }
+
+                }
+            }, currYear, currMonth, currDay);
+            datePickerDialog.show();
+        }
+
+    }
+
+
+    private void initialitzeViewsAndVariables(View view) {
+
+        newTODO=view.findViewById(R.id.et_newTODO);
+        lowPriority=view.findViewById(R.id.iv_lowPriority);
+        medPriority=view.findViewById(R.id.iv_medPriority);
+        highPriority=view.findViewById(R.id.iv_highPriority);
+        saveTODO=view.findViewById(R.id.bt_saveNewTODO);
+        setDueDate=view.findViewById(R.id.iv_setDuedate);
+        taskPriority=0;
+        isDueDateSet=false;
+        dueDate="";
+        calendar = Calendar.getInstance();
+        currYear=calendar.get((calendar.YEAR));
+        currMonth=calendar.get((calendar.MONTH));
+        currDay=calendar.get((calendar.DAY_OF_MONTH));
+
+    }
+
+    public interface CreateNewTaskBottomSheetListener{
+        void onDismissBottomSheetCalled(Boolean isCalled);
+    }
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -208,6 +221,10 @@ public class CreateNewTaskBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
-
+    private void setDefaultPriorityIcons(){
+        lowPriority.setImageResource(R.drawable.low_priority_green);
+        medPriority.setImageResource(R.drawable.med_priority_yellow);
+        highPriority.setImageResource(R.drawable.high_priority_red);
     }
+}
 
