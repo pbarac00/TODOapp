@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,11 +25,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.intelektualcicii.todoapp.Adapter.TaskAdapter;
 import com.intelektualcicii.todoapp.Model.Task;
 import com.intelektualcicii.todoapp.Dao.TaskDAO;
 import com.intelektualcicii.todoapp.Database.TaskDatabase;
 import com.intelektualcicii.todoapp.Dialog.CreateNewTaskBottomSheet;
+import com.intelektualcicii.todoapp.Model.User;
 import com.intelektualcicii.todoapp.R;
 import com.intelektualcicii.todoapp.Interface.SelectItemListener;
 
@@ -50,17 +58,52 @@ public class HomeActivity extends AppCompatActivity implements
     RecyclerView recyclerView;
     TaskAdapter taskAdapter;
     TaskDatabase taskDatabase;
+    TextView emailOfUser,nameOfUser;
     ImageView navMenu;
     Boolean isSortByPriorityClicked, isSortByAzClicked,isSortByDateClicked,isAddTodoOpen;
     BottomNavigationView bottom_navigation;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private String userID;
+    String fullName,email;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference("User");
+
+        userID=user.getUid();
+
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile= snapshot.getValue(User.class);
+                if (userProfile != null){
+                     fullName= userProfile.name;
+                     email= userProfile.email;
+
+                     setNameAndEmail();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, "Something wrong happened", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
 
         //This function is used to initialize widgets (views) and variables.
         initializeWidgetsAndVariables();
@@ -77,6 +120,8 @@ public class HomeActivity extends AppCompatActivity implements
         //listeners on UI elements and corresponding actions when clicked
         addListenersOnUI();
     }
+
+
 
 
 
@@ -442,6 +487,16 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
+    // I find this is only way that app doesn't crash... still don't work 100% as it should
+    private void setNameAndEmail() {
+
+        emailOfUser=findViewById(R.id.emailOfUser);
+        nameOfUser=findViewById(R.id.emailOfUser);
+
+        nameOfUser.setText(fullName);
+        emailOfUser.setText(email);
+    }
+
     private void initializeWidgetsAndVariables() {
 
         addTask=findViewById(R.id.add_task_floating_bt);
@@ -450,6 +505,7 @@ public class HomeActivity extends AppCompatActivity implements
         tabLayout.addTab(tabLayout.newTab().setText("Active"));
         tabLayout.addTab(tabLayout.newTab().setText("Finished"));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         isSortByPriorityClicked =false;
         isSortByAzClicked=false;
         isSortByDateClicked=false;
@@ -464,6 +520,7 @@ public class HomeActivity extends AppCompatActivity implements
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         bottom_navigation.setSelectedItemId(R.id.placeholder);
+
     }
 
     //function that is called when it is clicked on item in recycler view
