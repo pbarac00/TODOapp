@@ -75,36 +75,10 @@ public class HomeActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
         //This function is used to initialize widgets (views) and variables.
         initializeWidgetsAndVariables();
 
-
-
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile= snapshot.getValue(User.class);
-                if (userProfile != null){
-                     fullName= userProfile.name;
-                     email= userProfile.email;
-                     setNameAndEmail();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, "Something wrong happened", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-
-
-
+        fetchUserNameAndEmailFromFirebase();
 
         //This block of code initialize db instance.
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
@@ -118,9 +92,26 @@ public class HomeActivity extends AppCompatActivity implements
         //listeners on UI elements and corresponding actions when clicked
         addListenersOnUI();
     }
+    
 
+    private void fetchUserNameAndEmailFromFirebase() {
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile= snapshot.getValue(User.class);
+                if (userProfile != null){
+                    fullName= userProfile.name;
+                    email= userProfile.email;
+                    setNameAndEmail();
+                }
+            }
 
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, "Something wrong happened", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     private void addListenersOnUI() {
