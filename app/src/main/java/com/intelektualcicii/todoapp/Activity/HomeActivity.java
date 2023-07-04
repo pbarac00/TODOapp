@@ -75,10 +75,11 @@ public class HomeActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        user= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference("User");
 
-        userID=user.getUid();
+
+        //This function is used to initialize widgets (views) and variables.
+        initializeWidgetsAndVariables();
+
 
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,9 +89,7 @@ public class HomeActivity extends AppCompatActivity implements
                 if (userProfile != null){
                      fullName= userProfile.name;
                      email= userProfile.email;
-
                      setNameAndEmail();
-
                 }
             }
 
@@ -105,8 +104,7 @@ public class HomeActivity extends AppCompatActivity implements
 
 
 
-        //This function is used to initialize widgets (views) and variables.
-        initializeWidgetsAndVariables();
+
 
         //This block of code initialize db instance.
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
@@ -499,6 +497,10 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void initializeWidgetsAndVariables() {
 
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference("User");
+        userID=user.getUid();
+
         addTask=findViewById(R.id.add_task_floating_bt);
         recyclerView=findViewById(R.id.recyclerViewHomeTasks);
         tabLayout=findViewById(R.id.tabLayout_Home);
@@ -520,7 +522,6 @@ public class HomeActivity extends AppCompatActivity implements
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         bottom_navigation.setSelectedItemId(R.id.placeholder);
-
     }
 
     //function that is called when it is clicked on item in recycler view
