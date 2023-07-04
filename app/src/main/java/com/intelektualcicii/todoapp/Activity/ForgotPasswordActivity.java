@@ -47,7 +47,7 @@ private FirebaseAuth firebaseAuth;
         tv_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
+                startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
                 finish();
             }
         });

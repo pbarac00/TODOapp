@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements
         SelectItemListener {
 
     public int selectedTabPosition;
-    public int currentllySelectedInBottomMenu;
+    public int currentlySelectedInBottomMenu;
     TabLayout tabLayout;
     FloatingActionButton addTask;
     RecyclerView recyclerView;
@@ -62,36 +62,27 @@ public class HomeActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        addTask=findViewById(R.id.add_task_floating_bt);
+        //This function is used to initialize widgets (views) and variables.
+        initializeWidgetsAndVariables();
 
-        recyclerView=findViewById(R.id.recyclerViewHomeTasks);
-        tabLayout=findViewById(R.id.tabLayout_Home);
-        tabLayout.addTab(tabLayout.newTab().setText("Active"));
-        tabLayout.addTab(tabLayout.newTab().setText("Finished"));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        isSortByPriorityClicked =false;
-        isSortByAzClicked=false;
-        isSortByDateClicked=false;
-        isAddTodoOpen=false;
-        bottom_navigation=findViewById(R.id.bottom_navigation);
-        currentllySelectedInBottomMenu=0;
-
+        //This block of code initialize db instance.
         taskDatabase= Room.databaseBuilder(getApplicationContext(),
                         TaskDatabase.class,"task").
                 allowMainThreadQueries().fallbackToDestructiveMigration().build();
-       TaskDAO taskDAO =taskDatabase.taskDAO();
+        TaskDAO taskDAO =taskDatabase.taskDAO();
+
+        //sets Active tasks on display (active tab is default selected)
+        setActiveInRecyclerView();
+
+        //listeners on UI elements and corresponding actions when clicked
+        addListenersOnUI();
+    }
 
 
 
-        navMenu=findViewById(R.id.iv_navMenu);
+    private void addListenersOnUI() {
 
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-        NavigationView navigationView = findViewById(R.id.nav_menu);
-        navigationView.setNavigationItemSelectedListener(HomeActivity.this);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
+        //listener on active and finished tab with corresponding actions
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -118,9 +109,6 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
 
-        setActiveInRecyclerView();
-
-
 
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
 
-
+        //listener on FAB add new task, on click opens new BottomSheet
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,80 +129,70 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
 
-        bottom_navigation.setSelectedItemId(R.id.placeholder);
-
+        //listener on 4 items in bottom navigation (sort by priority, name, date)
         bottom_navigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.sortByName:
                         sortDataInRvByName();
-                        currentllySelectedInBottomMenu = R.id.sortByName;
+                        currentlySelectedInBottomMenu = R.id.sortByName;
                         return true;
                     case R.id.sortByPriority:
                         sortDataInRvByPriority();
-                        currentllySelectedInBottomMenu= R.id.sortByPriority;
+                        currentlySelectedInBottomMenu= R.id.sortByPriority;
                         return true;
                     case R.id.sortByDueDate:
                         sortDataInRvByDueDate();
-                        currentllySelectedInBottomMenu=R.id.sortByDueDate;
+                        currentlySelectedInBottomMenu=R.id.sortByDueDate;
                         return true;
                     case R.id.sortByCreatedDate:
                         sortDataInRvByCreatedDate();
-                        currentllySelectedInBottomMenu= R.id.sortByCreatedDate;
+                        currentlySelectedInBottomMenu= R.id.sortByCreatedDate;
                         return true;
                 }
                 return false;
             }
         });
-
     }
 
 
+    //function that sets active tasks on display in recyclerView on HomeScreen
     private void setActiveInRecyclerView()
     {
-            taskAdapter = new TaskAdapter(getActiveTask(),HomeActivity.this::onItemClick);
-            recyclerView.setAdapter(taskAdapter);
-    }
-
-    List<Task> getActiveTask(){
-
-        List<Task> tasks = taskDatabase.taskDAO().getAll();
-        List<Task> activeTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.isFinished==false){
-                activeTasks.add(task);
-            }
-        }
-        return activeTasks;
-    }
-
-    List<Task> getFinishedTask() {
-
-        List<Task> tasks = taskDatabase.taskDAO().getAll();
-        List<Task> finishedTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.isFinished==true){
-                finishedTasks.add(task);
-            }
-        }
-        return finishedTasks;
+        taskAdapter = new TaskAdapter(getActiveTask(),HomeActivity.this::onItemClick);
+        recyclerView.setAdapter(taskAdapter);
     }
 
 
-
+    //function that sets finished tasks on display in recyclerView on HomeScreen
     private void setFinishedInRecyclerView()
     {
-            // Task adapter is also initialized with reference to the method 'onItemClick'
-            // in the 'HomeActivity' class. That is needed to have listener on items in RV.
-            taskAdapter = new TaskAdapter(getFinishedTask(),HomeActivity.this::onItemClick);
-            recyclerView.setAdapter(taskAdapter);
-
-
+        // Task adapter is also initialized with reference to the method 'onItemClick'
+        // in the 'HomeActivity' class. That is needed to have listener on items in RV.
+        taskAdapter = new TaskAdapter(getFinishedTask(),HomeActivity.this::onItemClick);
+        recyclerView.setAdapter(taskAdapter);
     }
 
+    //function that checks if one of sort is already selected and does that sort if it is.
+    private void doSortIfIsSelected(){
+        switch (currentlySelectedInBottomMenu) {
+            case R.id.sortByName:
+                sortDataInRvByName();
+                break;
+            case R.id.sortByPriority:
+                sortDataInRvByPriority();
+                break;
+            case R.id.sortByDueDate:
+                sortDataInRvByDueDate();
+                break;
+            case R.id.sortByCreatedDate:
+                sortDataInRvByCreatedDate();
+                break;
+        }
+    }
+
+    // sorts task on display by due date
     private void sortDataInRvByDueDate()
     {
         List<Task> tasks= new ArrayList<>();
@@ -236,7 +214,6 @@ public class HomeActivity extends AppCompatActivity implements
             } else if (!dueDate1.isEmpty() && dueDate2.isEmpty()) {
                 return -1; // Move o2 to the end of the list
             }
-
             // Compare dueDates for non-empty values
             return dueDate1.compareTo(dueDate2);
         };
@@ -246,23 +223,8 @@ public class HomeActivity extends AppCompatActivity implements
         recyclerView.setAdapter(taskAdapter);
     }
 
-    private void doSortIfIsSelected(){
-        switch (currentllySelectedInBottomMenu) {
-            case R.id.sortByName:
-                sortDataInRvByName();
-                break;
-            case R.id.sortByPriority:
-                sortDataInRvByPriority();
-                break;
-            case R.id.sortByDueDate:
-                sortDataInRvByDueDate();
-                break;
-            case R.id.sortByCreatedDate:
-                sortDataInRvByCreatedDate();
-                break;
-        }
-    }
 
+    // sorts task on display by created date
     private void sortDataInRvByCreatedDate()
     {
         List<Task> tasks= new ArrayList<>();
@@ -280,22 +242,24 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-private void sortDataInRvByPriority()
-{
-    List<Task> tasks= new ArrayList<>();
-    if (selectedTabPosition==0)
+    // sorts task on display by priority
+    private void sortDataInRvByPriority()
     {
-        tasks=getActiveTask();
-    }
-    else{
-        tasks=getFinishedTask();
+        List<Task> tasks= new ArrayList<>();
+        if (selectedTabPosition==0)
+        {
+            tasks=getActiveTask();
+        }
+        else{
+            tasks=getFinishedTask();
+        }
+
+        tasks.sort((o1, o2) -> o2.priority.compareTo(o1.priority));
+        taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
+        recyclerView.setAdapter(taskAdapter);
     }
 
-    tasks.sort((o1, o2) -> o2.priority.compareTo(o1.priority));
-    taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
-    recyclerView.setAdapter(taskAdapter);
-}
-
+    // sorts task on display by name
     private void sortDataInRvByName()
     {
 
@@ -308,50 +272,15 @@ private void sortDataInRvByPriority()
             tasks=getFinishedTask();
         }
 
-            tasks.sort(Comparator.comparing(o -> o.taskName.toLowerCase(Locale.ROOT)));
-            taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
+        tasks.sort(Comparator.comparing(o -> o.taskName.toLowerCase(Locale.ROOT)));
+        taskAdapter = new TaskAdapter(tasks,HomeActivity.this::onItemClick);
 
         recyclerView.setAdapter(taskAdapter);
     }
 
-    private void logOut(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to logout?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseAuth.getInstance().signOut();
-
-                Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(HomeActivity.this,MainActivity.class));
-                finish();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.show();
 
 
-
-    }
-
-    //function that communicates with bottom sheet dialog(add new task)
-    //when isCalled becomes true it changes to Active tab and refreshes recyclerView
-    @Override
-    public void onDismissBottomSheetCalled(Boolean isCalled) {
-        if (isCalled){
-            
-            setActiveInRecyclerView();
-            TabLayout.Tab tab = tabLayout.getTabAt(0);
-            tab.select();
-        }
-    }
-
+    // method is called when a menu item is selected
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -362,7 +291,7 @@ private void sortDataInRvByPriority()
         return super.onOptionsItemSelected(item);
     }
 
-
+    // This method is called when a navigation item is selected in a navigation menu.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
@@ -380,11 +309,37 @@ private void sortDataInRvByPriority()
                 break;
 
         }
-        //zatvara menu logOut
+        //closing menu
         drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
     }
 
+
+    private void logOut(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseAuth.getInstance().signOut();
+
+                Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+
+
+    }
 
     private void deleteAllFromDb(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -396,9 +351,9 @@ private void sortDataInRvByPriority()
                 List<Task> tasks = taskDatabase.taskDAO().getAll();
 
                 for (Task task : tasks)
-                    {
-                        taskDatabase.taskDAO().delete(task);
-                    }
+                {
+                    taskDatabase.taskDAO().delete(task);
+                }
 
                 Toast.makeText(HomeActivity.this, "All finished deleted", Toast.LENGTH_SHORT).show();
                 setFinishedInRecyclerView();
@@ -442,9 +397,76 @@ private void sortDataInRvByPriority()
             }
         });
         builder.show();
-
     }
 
+
+    //function that return activeTasks from db
+    List<Task> getActiveTask(){
+
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        List<Task> activeTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.isFinished==false){
+                activeTasks.add(task);
+            }
+        }
+        return activeTasks;
+    }
+
+
+    //function that return finishedTasks from db
+    List<Task> getFinishedTask() {
+
+        List<Task> tasks = taskDatabase.taskDAO().getAll();
+        List<Task> finishedTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.isFinished==true){
+                finishedTasks.add(task);
+            }
+        }
+        return finishedTasks;
+    }
+
+    //function that communicates with bottom sheet dialog(add new task)
+    //when isCalled becomes true it changes to Active tab and refreshes recyclerView
+    @Override
+    public void onDismissBottomSheetCalled(Boolean isCalled) {
+        if (isCalled){
+
+            setActiveInRecyclerView();
+            TabLayout.Tab tab = tabLayout.getTabAt(0);
+            tab.select();
+        }
+    }
+
+
+    private void initializeWidgetsAndVariables() {
+
+        addTask=findViewById(R.id.add_task_floating_bt);
+        recyclerView=findViewById(R.id.recyclerViewHomeTasks);
+        tabLayout=findViewById(R.id.tabLayout_Home);
+        tabLayout.addTab(tabLayout.newTab().setText("Active"));
+        tabLayout.addTab(tabLayout.newTab().setText("Finished"));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        isSortByPriorityClicked =false;
+        isSortByAzClicked=false;
+        isSortByDateClicked=false;
+        isAddTodoOpen=false;
+        bottom_navigation=findViewById(R.id.bottom_navigation);
+        currentlySelectedInBottomMenu=0;
+        navMenu=findViewById(R.id.iv_navMenu);
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        NavigationView navigationView = findViewById(R.id.nav_menu);
+        navigationView.setNavigationItemSelectedListener(HomeActivity.this);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        bottom_navigation.setSelectedItemId(R.id.placeholder);
+    }
+
+    //function that is called when it is clicked on item in recycler view
     @Override
     public void onItemClick(int position) {
         List<Task> tasks= new ArrayList<>();
